@@ -25,3 +25,66 @@ exports[`FixedListEncoder should encode and decode correctly 2`] = `
   },
 ]
 `;
+
+exports[`FixedListEncoder should encode and decode correctly with nested object in list 1`] = `
+[
+  "root_0_age",
+  "root_0_details_city_is_London",
+  "root_0_details_city_is_New York",
+  "root_0_details_gender_is_Female",
+  "root_0_details_gender_is_Male",
+  "root_0_name_is_Alice",
+  "root_0_name_is_Bob",
+  "root_0_name_is_Charlie",
+  "root_1_age",
+  "root_1_details_city_is_London",
+  "root_1_details_city_is_New York",
+  "root_1_details_gender_is_Female",
+  "root_1_details_gender_is_Male",
+  "root_1_name_is_Alice",
+  "root_1_name_is_Bob",
+  "root_1_name_is_Charlie",
+]
+`;
+
+exports[`FixedListEncoder should encode and decode correctly with nested object in list 2`] = `
+[
+  25,
+  0,
+  1,
+  1,
+  0,
+  1,
+  0,
+  0,
+  30,
+  1,
+  0,
+  0,
+  1,
+  0,
+  1,
+  0,
+]
+`;
+
+exports[`FixedListEncoder should encode and decode correctly with nested object in list 3`] = `
+[
+  {
+    "age": 25,
+    "details": {
+      "city": "New York",
+      "gender": "Female",
+    },
+    "name": "Alice",
+  },
+  {
+    "age": 30,
+    "details": {
+      "city": "London",
+      "gender": "Male",
+    },
+    "name": "Bob",
+  },
+]
+`;

@@ -78,4 +78,48 @@ describe("FixedListEncoder", () => {
     expect(decoded).toHaveLength(0);
   });
 
+
+  it("should encode and decode correctly with nested object in list", () => {
+
+    const meta = {
+      properties: [
+        { name: "name", type: "category", values: ["Alice", "Bob", "Charlie"] },
+        { name: "age", type: "numeric" },
+        {
+          name: "details",
+          type: "object",
+          meta: {
+            properties: [
+              { name: "gender", type: "category", values: ["Male", "Female"] },
+              { name: "city", type: "category", values: ["New York", "London"] },
+            ],
+          },
+        },
+      ],
+    };
+
+    const positionDict = [
+      { name: "Alice" },
+      { name: "Bob" },
+    ];
+
+    const encoder = new FixedListEncoder(meta, positionDict);
+
+    const testData = [
+      { name: "Alice", age: 25, details: { gender: "Female", city: "New York" } },
+      { name: "Bob", age: 30, details: { gender: "Male", city: "London" } },
+      { name: "Charlie", age: 35, details: { gender: "Female", city: "Paris" } },
+    ];
+    const encoded = encoder.encode(testData);
+    const features = encoder.features()
+    expect(features).toMatchSnapshot()
+    expect(encoded).toMatchSnapshot();
+    expect(encoded).toHaveLength(features.length)
+
+    const decoded = encoder.decode(encoded);
+    expect(decoded).toHaveLength(2);
+    expect(decoded).toMatchSnapshot();
+  });
+
+
 });
