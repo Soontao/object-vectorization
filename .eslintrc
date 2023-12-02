@@ -94,6 +94,7 @@
     ],
     "@typescript-eslint/no-floating-promises": [
       "warn"
-    ]
+    ],
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

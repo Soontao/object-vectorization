@@ -12,5 +12,8 @@
     "codecov",
     "npmjs",
     "paren"
-  ]
+  ],
+  "[cds]": {
+    "editor.defaultFormatter": "SAPSE.vscode-cds"
+  }
 }
