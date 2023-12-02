@@ -154,15 +154,19 @@ function accuracyScore(predictions: Array<number>, actualLabels: Array<number>) 
   return correctPredictions / predictions.length;
 }
 
-function prepareTrainData(volume: number, labelNum = 10, rowModifier?: (data: any, categoryIndex: number) => void) {
-  const generatedDataList = new Array(volume).fill({}).map(() => generate(mobilePhoneMeta));
+function prepareTrainData(
+  volume: number,
+  labelNum = 10,
+  rowModifier?: (rowObjectData: any, categoryIndex: number) => void,
+) {
   const generatedLabels = generateLabels(volume, labelNum);
   const generatedLabelIndexes: Array<number> = generatedLabels._indexes;
+  const generatedDataList = new Array(volume).fill({}).map(() => generate(mobilePhoneMeta));
 
   if (rowModifier) {
-    for (const [dataIndex, indexValue] of generatedLabelIndexes.entries()) {
+    for (const [dataIndex, categoryIndex] of generatedLabelIndexes.entries()) {
       const data = generatedDataList[dataIndex];
-      rowModifier(data, indexValue);
+      rowModifier(data, categoryIndex);
     }
   }
 
