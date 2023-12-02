@@ -260,4 +260,4 @@ The `StatisticListEncoder` adds a layer of complexity to encoding, enabling you 
 
 ## [CHANGELOG](./CHANGELOG.md)
 
-## [License](./LICENSE)
+## [LICENSE](./LICENSE)
