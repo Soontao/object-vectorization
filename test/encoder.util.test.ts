@@ -154,6 +154,33 @@ function accuracyScore(predictions: Array<number>, actualLabels: Array<number>) 
   return correctPredictions / predictions.length;
 }
 
+function prepareTrainData(volume: number, labelNum = 10, rowModifier?: (data: any, categoryIndex: number) => void) {
+  const generatedDataList = new Array(volume).fill({}).map(() => generate(mobilePhoneMeta));
+  const generatedLabels = generateLabels(volume, labelNum);
+  const generatedLabelIndexes: Array<number> = generatedLabels._indexes;
+
+  if (rowModifier) {
+    for (const [dataIndex, indexValue] of generatedLabelIndexes.entries()) {
+      const data = generatedDataList[dataIndex];
+      rowModifier(data, indexValue);
+    }
+  }
+
+  const encoder = new ObjectEncoder(mobilePhoneMeta);
+  const dataset = generatedDataList.map((data) => encoder.encode(data));
+  const features = encoder.features();
+  const [X_train, y_train, X_test, y_test] = splitTestData(dataset, generatedLabelIndexes);
+  return {
+    features,
+    encoder,
+    dataset,
+    X_train,
+    X_test,
+    y_train,
+    y_test,
+  };
+}
+
 describe("Encoder Util Test Suite", () => {
   it("should support generate random object", () => {
     const obj = generate(mobilePhoneMeta);
@@ -165,30 +192,18 @@ describe("Encoder Util Test Suite", () => {
   });
 
   it("should support gen list data and train with random forest", async () => {
-    const generateDataSize = 30;
-    const generatedDataList = new Array(generateDataSize).fill({}).map(() => generate(mobilePhoneMeta));
-    const generatedLabels = generateLabels(generateDataSize);
-    const generatedLabelIndexes: Array<number> = generatedLabels._indexes;
-    const encoder = new ObjectEncoder(mobilePhoneMeta);
-    const dataset = generatedDataList.map((data) => encoder.encode(data));
+    const { X_train, y_train, X_test, y_test } = prepareTrainData(20);
     const clf = new RandomForestClassifier({ nEstimators: 20 });
-    const [X_train, y_train, X_test, y_test] = splitTestData(dataset, generatedLabelIndexes);
     clf.train(X_train, y_train);
     const predictions = clf.predict(X_test);
     const accuracyRate = accuracyScore(predictions, y_test);
     expect(accuracyRate).not.toBeUndefined();
   });
 
-  it("should support be able to support train a model care about deep data", async () => {
-    const generateDataSize = 100;
-    const generatedDataList = new Array(generateDataSize).fill({}).map(() => generate(mobilePhoneMeta));
-    const generatedLabels = generateLabels(generateDataSize, 4);
-    const generatedLabelIndexes: Array<number> = generatedLabels._indexes;
-
-    for (const [dataIndex, indexValue] of generatedLabelIndexes.entries()) {
-      const data = generatedDataList[dataIndex];
+  it("should support be able to support train a model care about deep list data", async () => {
+    const { X_train, y_train, X_test, y_test } = prepareTrainData(100, 4, (data, categoryIndex) => {
       const dy_attributes = data["dy_attributes"];
-      switch (indexValue) {
+      switch (categoryIndex) {
         case 0:
           dy_attributes[1].value = "REJECTED";
           break;
@@ -214,12 +229,9 @@ describe("Encoder Util Test Suite", () => {
         default:
           break;
       }
-    }
-    const encoder = new ObjectEncoder(mobilePhoneMeta);
-    const features = encoder.features();
-    const dataset = generatedDataList.map((data) => encoder.encode(data));
+    });
+
     const clf = new RandomForestClassifier({ nEstimators: 20 });
-    const [X_train, y_train, X_test, y_test] = splitTestData(dataset, generatedLabelIndexes);
     clf.train(X_train, y_train);
     const predictions = clf.predict(X_test);
     const accuracyRate = accuracyScore(predictions, y_test);
