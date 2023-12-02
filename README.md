@@ -86,8 +86,8 @@ In the `ObjectMetadata`, each property must have a specified `type` to define it
 - **bool**: Represents Boolean values.
 - **uuid**: Represents universally unique identifier (UUID) values.
 - **object**: Represents nested objects within the property.
-- **fixed_object_list**: Indicates a fixed list of objects with a predefined structure.
-- **statistic_object_list**: Represents a dynamic list of objects with varying structures.
+- **fixed_object_list**: Indicates a fixed length list of objects with a predefined order.
+- **statistic_object_list**: Represents a dynamic length list of objects, so reduce the dimension via statistic metrics.
 
 Choose the appropriate type for each property based on the nature of the data it represents. This ensures a clear and consistent definition within your `ObjectMetadata`.
 
