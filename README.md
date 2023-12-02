@@ -8,11 +8,11 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Soontao_object-vectorization&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Soontao_object-vectorization)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Soontao_object-vectorization&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Soontao_object-vectorization)
 
-> `Object vectorization` is a process of converting structured data objects into numerical vectors,enabling machine learning models to understand and process the information contained in these objects.
+> `Object Vectorization` is a process of converting structured data objects into numerical vectors,enabling machine learning models to understand and process the information contained in these objects.
 
 ## Overview
 
-Object vectorization is crucial in scenarios where machine learning models require numerical input, and the data is initially presented as structured objects. This framework facilitates the transformation of diverse object types, including categories, numbers, booleans, datetime, and nested structures, into numerical vectors that can be fed into machine learning models.
+Object vectorization is crucial in scenarios where machine learning models require numerical input, and the data is initially presented as structured objects. This framework facilitates the transformation of diverse object types, including `categories`, `numbers`, `booleans`, `datetime`, and `nested structures`, into numerical `vectors` that can be fed into machine learning models.
 
 ## Quick Start
 
