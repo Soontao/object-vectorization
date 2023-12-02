@@ -57,6 +57,25 @@ describe("FixedListEncoder", () => {
       "FixedListEncoder: Invalid vector length"
     );
   });
-});
 
-// You can add more test cases based on your specific use cases and edge scenarios.
+  it("should handle decoding with NaN list", () => {
+    const nanEncoded = new Array(8).fill(NaN);
+
+    const decoded = encoder.decode(nanEncoded);
+
+    // Check if the decoded list contains undefined for each item
+    expect(decoded).toHaveLength(0)
+  });
+
+
+  it("should handle encoding and decoding an empty input list", () => {
+    const emptyInputList = [];
+
+    const encoded = encoder.encode(emptyInputList);
+    const decoded = encoder.decode(encoded);
+
+    // Check if the decoded list is empty
+    expect(decoded).toHaveLength(0);
+  });
+
+});

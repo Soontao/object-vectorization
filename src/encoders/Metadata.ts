@@ -8,7 +8,7 @@ export interface Property {
   /**
    * type
    */
-  type: "category" | "bool" | "numeric" | "datetime" | "object" | "object_list";
+  type: "category" | "bool" | "uuid" | "numeric" | "datetime" | "object" | "object_list";
 
   /**
    * possible values for category

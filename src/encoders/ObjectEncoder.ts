@@ -7,6 +7,7 @@ import Encoder from "./Encoder";
 import { FixedListEncoder } from "./FixedListEncoder";
 import ObjectMetadata from "./Metadata";
 import NumericEncoder from "./NumericEncoder";
+import UUIDEncoder from "./UUIDEncoder";
 
 export function sort(meta: ObjectMetadata): ObjectMetadata {
   if (meta._sorted) {
@@ -55,6 +56,9 @@ export function fillEncoders(meta: ObjectMetadata) {
         break;
       case "object":
         property._encoder = new ObjectEncoder(property.meta!);
+        break;
+      case "uuid":
+        property._encoder = new UUIDEncoder();
         break;
       case "object_list":
         property._encoder = new FixedListEncoder(property.meta!, property.position_dict!);
