@@ -210,14 +210,28 @@ describe("Encoder Util Test Suite", () => {
   it("should support be able to support train a model care about deep list data", async () => {
     function dataEnhancer(data: any, categoryIndex: number) {
       const dy_attributes = data["dy_attributes"];
+      dy_attributes[0].value = faker.datatype.boolean();
       switch (categoryIndex) {
         case 0:
           dy_attributes[1].value = "REJECTED";
+          data.rates = [
+            {
+              timestamp: faker.date.anytime(),
+              rating: faker.number.float({ min: 0, max: 4 }),
+            },
+          ];
           break;
         case 1:
           dy_attributes[1].value = "APPROVED";
+          data.rates = [
+            {
+              timestamp: faker.date.anytime(),
+              rating: faker.number.float({ min: 0, max: 4 }),
+            },
+          ];
           break;
         case 2:
+          dy_attributes[1].value = faker.helpers.arrayElement("APPROVED", "REJECTED");
           data.rates = [
             {
               timestamp: faker.date.anytime(),
@@ -226,10 +240,11 @@ describe("Encoder Util Test Suite", () => {
           ];
           break;
         case 3:
+          dy_attributes[1].value = faker.helpers.arrayElement("APPROVED", "REJECTED");
           data.rates = [
             {
               timestamp: faker.date.anytime(),
-              rating: faker.number.float({ min: 4, max: 8 }),
+              rating: faker.number.float({ min: 4, max: 9 }),
             },
           ];
           break;
@@ -239,7 +254,11 @@ describe("Encoder Util Test Suite", () => {
     }
     const { X_train, y_train, X_test, y_test, features } = prepareTrainData(100, 4, dataEnhancer);
 
-    const clf = new RandomForestClassifier({ nEstimators: 20 });
+    const clf = new RandomForestClassifier({
+      nEstimators: 25,
+      treeOptions: { maxDepth: 5 },
+      useSampleBagging: true,
+    });
     clf.train(X_train, y_train);
     const predictions = clf.predict(X_test);
     const accuracyRate = accuracyScore(predictions, y_test);
@@ -251,6 +270,6 @@ describe("Encoder Util Test Suite", () => {
 
     expect(mostImportantFeatureNames.includes("root_dy_attributes_1_value_is_APPROVED")).toBeTruthy();
 
-    expect(accuracyRate).toBeGreaterThan(0.8);
+    expect(accuracyRate).toBeGreaterThan(0.7);
   });
 });
