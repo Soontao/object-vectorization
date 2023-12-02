@@ -125,7 +125,10 @@ function generateLabels(num: number, labelSize = 10): Array<string> {
   return generateLabels;
 }
 
-function splitTestData(vectors: Array<Vector>, labels: Array<string>) {
+function splitTestData(
+  vectors: Array<Vector>,
+  labels: Array<string>,
+): [Array<number>, Array<number>, Array<number>, Array<number>] {
   const X_train = [],
     y_train = [],
     X_test = [],
