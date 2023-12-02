@@ -11,7 +11,7 @@ describe("DateTimeEncoder Test Suite", () => {
     const decodedDateTime = encoder.decode(encodedVector);
 
     // Assert
-    const expectedVector = [2023, 12, 1, 48, 20, 34, 56];
+    const expectedVector = [2023, 12, 1, 48, 12, 34, 56];
     expect(encodedVector).toEqual(expectedVector);
 
     const expectedISODateTime = "2023-12-01T12:34:56.000Z";

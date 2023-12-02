@@ -8,7 +8,7 @@ import { Encoder } from "./Encoder";
  */
 export class DateTimeEncoder implements Encoder<string> {
   encode(value: string): Vector {
-    const dateTime = DateTime.fromISO(value);
+    const dateTime = DateTime.fromISO(value).setZone("utc");
 
     if (!dateTime.isValid) {
       return new Array(this.length).fill(NaN);
@@ -38,14 +38,17 @@ export class DateTimeEncoder implements Encoder<string> {
 
     const [year, month, day, isoWeek, hour, minute, second] = vec;
 
-    let dateTime = DateTime.fromObject({
-      year,
-      month,
-      day,
-      hour,
-      minute,
-      second,
-    });
+    let dateTime = DateTime.fromObject(
+      {
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second,
+      },
+      { zone: "utc" },
+    );
 
     // Check if ISO week is provided, adjust the date accordingly
     if (!isNaN(isoWeek)) {
