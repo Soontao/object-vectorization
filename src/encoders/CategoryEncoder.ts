@@ -1,5 +1,8 @@
 import { Encoder } from "./Encoder";
 
+/**
+ * @human
+ */
 export class CategoryEncoder<T = any> implements Encoder<T> {
   #values: any[];
 

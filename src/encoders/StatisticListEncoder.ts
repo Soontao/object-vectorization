@@ -18,6 +18,9 @@ const statisticFuncs: { [col: string]: StatisticFunc } = {
 const statisticFuncNames = Object.keys(statisticFuncs);
 const statisticColsNum = statisticFuncNames.length;
 
+/**
+ * @human
+ */
 export class StatisticListEncoder<T> implements Encoder<Array<T>> {
   #meta: ObjectMetadata;
 
