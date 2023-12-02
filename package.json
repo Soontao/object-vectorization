@@ -36,5 +36,10 @@
   "license": "Apache-2.0",
   "dependencies": {
     "luxon": "^3.4.4"
-  }
+  },
+  "keywords": [
+    "machine-learning",
+    "vector",
+    "AI"
+  ]
 }

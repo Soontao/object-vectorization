@@ -254,5 +254,3 @@ The `StatisticListEncoder` adds a layer of complexity to encoding, enabling you 
 ## [CHANGELOG](./CHANGELOG.md)
 
 ## [License](./LICENSE)
-
-This object vectorization framework is licensed under the [MIT License](./LICENSE).
