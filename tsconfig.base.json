@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "newLine": "lf",
+    "target": "ES2021",
+    "module": "CommonJS",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "useUnknownInCatchVariables": false,
+    "sourceMap": true,
+    "outDir": "lib",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "strict": true,
+    "lib": [
+      "ES2021"
+    ]
+  }
+}
