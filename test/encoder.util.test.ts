@@ -208,7 +208,7 @@ describe("Encoder Util Test Suite", () => {
   });
 
   it("should support be able to support train a model care about deep list data", async () => {
-    const { X_train, y_train, X_test, y_test } = prepareTrainData(100, 4, (data, categoryIndex) => {
+    function dataEnhancer(data: any, categoryIndex: number) {
       const dy_attributes = data["dy_attributes"];
       switch (categoryIndex) {
         case 0:
@@ -236,12 +236,21 @@ describe("Encoder Util Test Suite", () => {
         default:
           break;
       }
-    });
+    }
+    const { X_train, y_train, X_test, y_test, features } = prepareTrainData(100, 4, dataEnhancer);
 
     const clf = new RandomForestClassifier({ nEstimators: 20 });
     clf.train(X_train, y_train);
     const predictions = clf.predict(X_test);
     const accuracyRate = accuracyScore(predictions, y_test);
+    const mostImportantFeatures = (clf.featureImportance() as Array<number>)
+      .map((imp, idx) => ({ imp, feat: features[idx] }))
+      .sort((a, b) => b.imp - a.imp)
+      .slice(0, 10);
+    const mostImportantFeatureNames = mostImportantFeatures.map((i) => i.feat);
+
+    expect(mostImportantFeatureNames.includes("root_dy_attributes_1_value_is_APPROVED")).toBeTruthy();
+
     expect(accuracyRate).toBeGreaterThan(0.8);
   });
 });
