@@ -1,5 +1,13 @@
 # Object Vectorization
 
+[![npm version](https://img.shields.io/npm/v/object-vectorization?label=object-vectorization)](https://www.npmjs.com/package/object-vectorization)
+[![node-test](https://github.com/Soontao/object-vectorization/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Soontao/object-vectorization/actions/workflows/nodejs.yml)
+[![codecov](https://codecov.io/gh/Soontao/object-vectorization/graph/badge.svg?token=yoJAm8JUOd)](https://codecov.io/gh/Soontao/object-vectorization)
+
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Soontao_object-vectorization&metric=security_rating)](https://sonarcloud.io/dashboard?id=Soontao_object-vectorization)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Soontao_object-vectorization&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Soontao_object-vectorization)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Soontao_object-vectorization&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Soontao_object-vectorization)
+
 > `Object vectorization` is a process of converting structured data objects into numerical vectors,enabling machine learning models to understand and process the information contained in these objects.
 
 ## Overview
