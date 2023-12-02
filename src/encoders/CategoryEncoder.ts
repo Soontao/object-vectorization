@@ -1,5 +1,3 @@
-// TODO: handle null value
-
 import { Encoder } from "./Encoder";
 
 export class CategoryEncoder<T = any> implements Encoder<T> {

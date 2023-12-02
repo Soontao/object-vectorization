@@ -1,3 +1,4 @@
+// ai+human
 import BoolEncoder from "../src/encoders/BoolEncoder";
 
 describe("BoolEncoder Test Suite", () => {

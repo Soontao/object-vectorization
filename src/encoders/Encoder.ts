@@ -5,3 +5,5 @@ export interface Encoder<T = any> {
   decode(vec: Vector): T;
   get length(): number;
 }
+
+export default Encoder;

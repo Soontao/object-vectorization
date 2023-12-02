@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FixedListEncoder should encode and decode correctly 1`] = `
+[
+  25,
+  1,
+  0,
+  0,
+  30,
+  0,
+  1,
+  0,
+]
+`;
+
+exports[`FixedListEncoder should encode and decode correctly 2`] = `
+[
+  {
+    "age": 25,
+    "name": "Alice",
+  },
+  {
+    "age": 30,
+    "name": "Bob",
+  },
+]
+`;

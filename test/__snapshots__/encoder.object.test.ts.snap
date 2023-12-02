@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ObjectEncoder Test Suite should encode and decode an object correctly 1`] = `
+[
+  1,
+  0,
+  0,
+  1,
+  0,
+  2023,
+  1,
+  1,
+  52,
+  20,
+  30,
+  0,
+  42,
+  0,
+  1,
+  0,
+  0,
+  1,
+]
+`;
+
+exports[`ObjectEncoder Test Suite should encode and decode an object correctly 2`] = `
+{
+  "prop_bool": true,
+  "prop_category": "B",
+  "prop_datetime": "2023-01-01T12:30:00.000Z",
+  "prop_numeric": 42,
+  "prop_object": {
+    "nested_bool": false,
+    "nested_category": "Z",
+  },
+}
+`;

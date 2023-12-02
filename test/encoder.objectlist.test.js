@@ -1,0 +1,62 @@
+// @human
+// @ai
+import { FixedListEncoder } from "../src/encoders/FixedListEncoder";
+import { ObjectEncoder } from "../src/encoders/ObjectEncoder";
+
+describe("FixedListEncoder", () => {
+  const meta = {
+    properties: [
+      { name: "name", type: "category", values: ["Alice", "Bob", "Charlie"] },
+      { name: "age", type: "numeric" },
+    ],
+  };
+
+  const positionDict = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+  ];
+
+  const encoder = new FixedListEncoder(meta, positionDict);
+
+  const testData = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 35 },
+  ];
+
+  it("should encode and decode correctly", () => {
+    const encoded = encoder.encode(testData);
+    expect(encoded).toMatchSnapshot()
+    const decoded = encoder.decode(encoded);
+    expect(decoded).toHaveLength(2)
+    expect(decoded).toMatchSnapshot()
+  });
+
+  it("should encode with NaN for missing items", () => {
+    const objEncoder = new ObjectEncoder(meta)
+    const testDataSubset = [
+      { name: "Alice", age: 25 },
+      { name: "Charlie", age: 35 },
+    ];
+
+    const encoded = encoder.encode(testDataSubset);
+
+    // Check if NaN values are present for the missing item
+    expect(encoded).toEqual([
+      // Encoded Alice
+      ...objEncoder.encode({ name: "Alice", age: 25, length: 2 }),
+      // Encoded Bob (missing)
+      ...new Array(objEncoder.length).fill(NaN),
+    ]);
+  });
+
+  it("should handle invalid vector length during decoding", () => {
+    const invalidVector = [1, 2, 3, 4, 5];
+
+    expect(() => encoder.decode(invalidVector)).toThrow(
+      "FixedListEncoder: Invalid vector length"
+    );
+  });
+});
+
+// You can add more test cases based on your specific use cases and edge scenarios.
