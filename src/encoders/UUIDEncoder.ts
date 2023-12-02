@@ -22,20 +22,18 @@ export class UUIDEncoder implements Encoder<string> {
     return Buffer.from(new Uint32Array(arr).buffer).toString("hex");
   }
 
+  features(name: string): string[] {
+    return [name];
+  }
+
   encode(value: string): number[] {
     value = value.replaceAll("-", "");
     return this.#hexToUint32Array(value);
   }
 
   decode(vec: number[]): string {
-    const hex =  this.#Uint32ArrayToHex(vec);
-    return [
-      hex.slice(0, 8),
-      hex.slice(8, 12),
-      hex.slice(12, 16),
-      hex.slice(16, 20),
-      hex.slice(20),
-    ].join("-");
+    const hex = this.#Uint32ArrayToHex(vec);
+    return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join("-");
   }
 
   get length(): number {

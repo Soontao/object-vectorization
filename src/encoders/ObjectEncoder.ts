@@ -7,13 +7,14 @@ import Encoder from "./Encoder";
 import { FixedListEncoder } from "./FixedListEncoder";
 import ObjectMetadata from "./Metadata";
 import NumericEncoder from "./NumericEncoder";
+import StatisticListEncoder from "./StatisticListEncoder";
 import UUIDEncoder from "./UUIDEncoder";
 
 export function sort(meta: ObjectMetadata): ObjectMetadata {
   if (meta._sorted) {
     return meta;
   }
-  const newMeta = { ...meta, _sorted: true };
+  const newMeta = { ...meta };
   newMeta.properties = meta.properties
     .map((v) => {
       if (v.type == "object") {
@@ -27,19 +28,20 @@ export function sort(meta: ObjectMetadata): ObjectMetadata {
       return v;
     })
     .sort((p1, p2) => (p1.name > p2.name ? 1 : -1));
+  Object.defineProperty(newMeta, "_sorted", { value: true, enumerable: false });
   return newMeta;
 }
 
 export function fillEncoders(meta: ObjectMetadata) {
   if (meta._encoder_filled) {
-    return;
+    return meta;
   }
   for (const property of meta.properties) {
     if (property._encoder !== undefined) {
       continue;
     }
     if (property.meta) {
-      fillEncoders(property.meta!); // inner meta create encoders firstly
+      sortMetaAndFillEncoders(property.meta!); // inner meta create encoders firstly
     }
     switch (property.type) {
       case "bool":
@@ -60,14 +62,32 @@ export function fillEncoders(meta: ObjectMetadata) {
       case "uuid":
         property._encoder = new UUIDEncoder();
         break;
-      case "object_list":
+      case "fixed_object_list":
         property._encoder = new FixedListEncoder(property.meta!, property.position_dict!);
+        break;
+      case "statistic_object_list":
+        property._encoder = new StatisticListEncoder(property.meta!);
         break;
       default:
         throw new TypeError(`cannot handle type ${property.type} for ${property.name}`);
     }
   }
-  meta._encoder_filled = true;
+  calculateObjectVecLength(meta);
+  Object.defineProperty(meta, "_encoder_filled", { value: true, enumerable: false });
+  return meta;
+}
+
+export function sortMetaAndFillEncoders(meta: ObjectMetadata): ObjectMetadata {
+  return fillEncoders(sort(meta));
+}
+
+export function calculateObjectVecLength(meta: ObjectMetadata): number {
+  if (meta._length) {
+    return meta._length;
+  }
+  const _length = meta.properties.reduce((acc, property) => acc + property._encoder!.length, 0);
+  Object.defineProperty(meta, "_length", { value: _length, enumerable: false });
+  return _length;
 }
 
 /**
@@ -77,16 +97,12 @@ export function fillEncoders(meta: ObjectMetadata) {
 export class ObjectEncoder<T> implements Encoder<T> {
   #meta: ObjectMetadata;
 
-  #length: number;
-
   constructor(meta: ObjectMetadata) {
-    this.#meta = sort(meta);
-    fillEncoders(this.#meta);
-    this.#length = this._calculateLength();
+    this.#meta = sortMetaAndFillEncoders(meta);
   }
 
-  private _calculateLength(): number {
-    return this.#meta.properties.reduce((acc, property) => acc + property._encoder!.length, 0);
+  features(name: string = "root"): string[] {
+    return this.#meta.properties.map((p) => p._encoder!.features(p.name).map((pName) => `${name}_${pName}`)).flat();
   }
 
   encode(value: T): Vector {
@@ -104,7 +120,7 @@ export class ObjectEncoder<T> implements Encoder<T> {
   }
 
   decode(vec: Vector): T {
-    if (vec.length !== this.#length) {
+    if (vec.length !== this.length) {
       throw new Error("Invalid vector length");
     }
 
@@ -122,7 +138,7 @@ export class ObjectEncoder<T> implements Encoder<T> {
   }
 
   get length(): number {
-    return this.#length;
+    return this.#meta._length!;
   }
 }
 

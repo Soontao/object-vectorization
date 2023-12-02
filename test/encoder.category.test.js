@@ -24,6 +24,15 @@ describe("CategoryEncoder Test Suite", () => {
     expect(encoder.decode(encodedC)).toBe("C");
   });
 
+
+  it("should support list feature names", () => {
+    // Arrange
+    const categories = ["A", "B", "C"];
+    const encoder = new CategoryEncoder(categories);
+
+    expect(encoder.features("c_1")).toMatchSnapshot()
+  });
+
   it("should handle null value", () => {
     // Arrange
     const categories = ["A", "B", "C"];

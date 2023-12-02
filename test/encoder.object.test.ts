@@ -169,7 +169,7 @@ describe("ObjectEncoder Test Suite", () => {
               { name: "nested_category", type: "category", values: ["X", "Y", "Z"] },
               {
                 name: "nested_list",
-                type: "object_list",
+                type: "fixed_object_list",
                 meta: {
                   properties: [
                     { name: "item_name", type: "category", values: ["Item1", "Item2", "Item3"] },
@@ -202,14 +202,81 @@ describe("ObjectEncoder Test Suite", () => {
 
     // Create an instance of ObjectEncoder
     const objectEncoder = new ObjectEncoder(metadata);
+    const features = objectEncoder.features();
+
+    expect(features).toMatchSnapshot();
 
     // Encode the test data
     const encodedVector = objectEncoder.encode(testData);
+
+    expect(encodedVector).toHaveLength(features.length);
+    expect(encodedVector).toMatchSnapshot();
 
     // Decode the encoded vector
     const decodedObject = objectEncoder.decode(encodedVector);
 
     // Assertions
     expect(decodedObject).toEqual(testData);
+  });
+
+  it("should encode and decode correctly with nested object and list object", () => {
+    // Sample metadata for testing
+    const metadata: any = {
+      properties: [
+        { name: "prop_bool", type: "bool" },
+        { name: "prop_category", type: "category", values: ["A", "B", "C"] },
+        { name: "prop_datetime", type: "datetime" },
+        { name: "prop_numeric", type: "numeric" },
+        {
+          name: "prop_object",
+          type: "object",
+          meta: {
+            properties: [
+              { name: "nested_bool", type: "bool" },
+              { name: "nested_category", type: "category", values: ["X", "Y", "Z"] },
+              {
+                name: "nested_list",
+                type: "statistic_object_list", // Use the new type
+                meta: {
+                  properties: [
+                    { name: "item_name", type: "category", values: ["Item1", "Item2", "Item3"] },
+                    { name: "item_value", type: "numeric" },
+                  ],
+                },
+                position_dict: [{ item_name: "Item1" }, { item_name: "Item2" }],
+              },
+            ],
+          },
+        },
+      ],
+    };
+
+    // Sample object data for testing
+    const testData = {
+      prop_bool: true,
+      prop_category: "B",
+      prop_datetime: "2023-01-01T12:30:00.000Z",
+      prop_numeric: 42,
+      prop_object: {
+        nested_bool: false,
+        nested_category: "Z",
+        nested_list: [
+          { item_name: "Item1", item_value: 10 },
+          { item_name: "Item2", item_value: 20 },
+        ],
+      },
+    };
+
+    // Create an instance of ObjectEncoder
+    const objectEncoder = new ObjectEncoder(metadata);
+    const features = objectEncoder.features();
+
+    expect(features).toMatchSnapshot();
+
+    // Encode the test data
+    const encodedVector = objectEncoder.encode(testData);
+
+    expect(encodedVector).toHaveLength(features.length);
+    expect(encodedVector).toMatchSnapshot();
   });
 });

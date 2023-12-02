@@ -13,6 +13,10 @@ export class CategoryEncoder<T = any> implements Encoder<T> {
     }
   }
 
+  features(name: string): string[] {
+    return this.#values.map((v) => `${name}_is_${String(v)}`);
+  }
+
   encode(value: T): Array<number> {
     if (value == undefined) {
       return new Array(this.length).fill(NaN);

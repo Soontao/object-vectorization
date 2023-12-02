@@ -1,10 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "jest"
-  ],
+  "plugins": ["@typescript-eslint", "jest"],
   "env": {
     "node": true,
     "es6": true,
@@ -12,10 +9,7 @@
     "jest/globals": true
   },
   "parserOptions": {
-    "project": [
-      "./tsconfig.json",
-      "./test/tsconfig.json"
-    ],
+    "project": ["./tsconfig.json", "./test/tsconfig.json"],
     "ecmaVersion": "latest",
     "sourceType": "module",
     "ecmaFeatures": {
@@ -23,11 +17,7 @@
       "objectLiteralDuplicateProperties": false
     }
   },
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
-    "prettier"
-  ],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:jest/recommended", "prettier"],
   "rules": {
     "max-len": [
       "error",
@@ -37,20 +27,11 @@
         "ignoreRegExpLiterals": true
       }
     ],
-    "semi": [
-      2
-    ], // must end with semi
-    "no-extra-semi": [
-      0
-    ],
+    "semi": [2], // must end with semi
+    "no-extra-semi": [0],
     "@typescript-eslint/type-annotation-spacing": "error",
-    "@typescript-eslint/no-explicit-any": [
-      0
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
+    "@typescript-eslint/no-explicit-any": [0],
+    "linebreak-style": ["error", "unix"],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -60,10 +41,7 @@
     ],
     "space-before-blocks": "error",
     "key-spacing": "error",
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ],
+    "object-curly-spacing": ["error", "always"],
     "camelcase": [
       "error",
       {
@@ -92,9 +70,7 @@
         "SwitchCase": 1
       }
     ],
-    "@typescript-eslint/no-floating-promises": [
-      "warn"
-    ],
+    "@typescript-eslint/no-floating-promises": ["warn"],
     "@typescript-eslint/no-var-requires": "off"
   }
 }

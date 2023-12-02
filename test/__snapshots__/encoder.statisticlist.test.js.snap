@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatisticListEncoder Test Suite should encode correctly 1`] = `
+[
+  "list_a_age_max",
+  "list_a_height_max",
+  "list_a_age_min",
+  "list_a_height_min",
+  "list_a_age_avg",
+  "list_a_height_avg",
+  "list_a_age_count",
+  "list_a_height_count",
+  "list_a_age_sum",
+  "list_a_height_sum",
+]
+`;

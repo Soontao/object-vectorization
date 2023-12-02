@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryEncoder Test Suite should support list feature names 1`] = `
+[
+  "c_1_is_A",
+  "c_1_is_B",
+  "c_1_is_C",
+]
+`;

@@ -5,6 +5,10 @@ import { Encoder } from "./Encoder";
  * @ai
  */
 export class NumericEncoder implements Encoder<number> {
+  features(name: string): string[] {
+    return [name];
+  }
+
   encode(value: number): Vector {
     if (isNaN(value)) {
       throw new Error("Invalid numeric value");

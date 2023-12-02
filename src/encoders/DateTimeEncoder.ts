@@ -7,6 +7,10 @@ import { Encoder } from "./Encoder";
  * @human
  */
 export class DateTimeEncoder implements Encoder<string> {
+  features(name: string): string[] {
+    return ["year", "month", "day", "isoWeek", "hour", "minute", "second"].map((v) => `${name}_${v}`);
+  }
+
   encode(value: string): Vector {
     const dateTime = DateTime.fromISO(value).setZone("utc");
 
