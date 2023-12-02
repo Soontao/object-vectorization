@@ -251,6 +251,8 @@ The `StatisticListEncoder` extends the encoding capabilities by introducing stat
 
 The `StatisticListEncoder` adds a layer of complexity to encoding, enabling you to capture more nuanced information about your data through statistical summaries.
 
-## License
+## [CHANGELOG](./CHANGELOG.md)
+
+## [License](./LICENSE)
 
 This object vectorization framework is licensed under the [MIT License](./LICENSE).
