@@ -18,7 +18,7 @@ export function multiFilter<T>(values: Array<T>, predictors: Array<Predictor<T>>
   return rtValues;
 }
 
-export async function calculateVectorForObject(meta: EntityDefinition, where: any): Vector {
+export async function calculateVectorForObject(meta: EntityDefinition, where: any): Promise<Vector> {
   // calculate vector length
   const cds = cwdRequireCDS();
   const { SELECT } = cds.ql;
@@ -30,6 +30,7 @@ export async function calculateVectorForObject(meta: EntityDefinition, where: an
     }
   }
   const data = await cds.run(SELECT.one.from(meta).where(where));
+  return [] as any;
 }
 
 async function _createEncodersForCategories(
