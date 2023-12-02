@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { Vector } from "../type";
 import BoolEncoder from "./BoolEncoder";
 import CategoryEncoder from "./CategoryEncoder";
 import DateTimeEncoder from "./DateTimeEncoder";
@@ -9,6 +8,7 @@ import ObjectMetadata from "./Metadata";
 import NumericEncoder from "./NumericEncoder";
 import StatisticListEncoder from "./StatisticListEncoder";
 import UUIDEncoder from "./UUIDEncoder";
+import { Vector } from "./type";
 
 export function sort(meta: ObjectMetadata): ObjectMetadata {
   if (meta._sorted) {

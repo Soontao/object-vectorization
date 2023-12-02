@@ -30,7 +30,7 @@ export interface Property {
   meta?: ObjectMetadata;
 
   /**
-   * for object list, used to match list item then assign to correct position
+   * only for fixed_object_list, used to match input list item, then assign to correct position
    */
   position_dict?: Array<any>;
 

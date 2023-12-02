@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
-import { Vector } from "../type";
 import { Encoder } from "./Encoder";
+import { Vector } from "./type";
 
 /**
  * @ai

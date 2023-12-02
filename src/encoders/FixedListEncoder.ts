@@ -1,7 +1,7 @@
-import { Vector } from "../type";
 import Encoder from "./Encoder";
 import ObjectMetadata from "./Metadata";
 import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder";
+import { Vector } from "./type";
 
 export function match<T = any>(obj: T, part: any): part is Partial<T> {
   return Object.entries(part).every(([p, v]) => (obj as any)[p] === v);
@@ -82,3 +82,5 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
     return this.#length;
   }
 }
+
+export default FixedListEncoder;

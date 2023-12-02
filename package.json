@@ -1,6 +1,6 @@
 {
-  "name": "cds-vectorization",
-  "description": "produce vectorization object via cds metadata",
+  "name": "object-vectorization",
+  "description": "produce vectorization object via metadata",
   "version": "0.0.1",
   "main": "lib/index.js",
   "engines": {
@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
-    "@sap/cds": "^7.4.2",
     "@types/jest": "29.5.10",
     "@types/luxon": "^3.3.6",
     "@types/node": "20.10.2",

@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import { RandomForestClassifier } from "ml-random-forest";
 import ObjectMetadata from "../src/encoders/Metadata";
 import ObjectEncoder from "../src/encoders/ObjectEncoder";
-import { Vector } from "../src/type";
+import { Vector } from "../src/encoders/type";
 
 const mobilePhoneMeta: ObjectMetadata = {
   properties: [
