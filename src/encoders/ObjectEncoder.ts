@@ -2,7 +2,7 @@
 import { Vector } from "../type";
 import BoolEncoder from "./BoolEncoder";
 import CategoryEncoder from "./CategoryEncoder";
-import DateTimeEncoder from "./DateTimeEncode";
+import DateTimeEncoder from "./DateTimeEncoder";
 import Encoder from "./Encoder";
 import { FixedListEncoder } from "./FixedListEncoder";
 import ObjectMetadata from "./Metadata";

@@ -1,5 +1,5 @@
 // ai+human
-import DateTimeEncoder from "../src/encoders/DateTimeEncode";
+import DateTimeEncoder from "../src/encoders/DateTimeEncoder";
 
 describe("DateTimeEncoder Test Suite", () => {
   it("should encode and decode date-time values correctly", () => {
