@@ -15,16 +15,25 @@ export class CategoryEncoder<T = any> implements Encoder<T> {
     }
   }
 
-  encode(value: T): Float32Array {
-    const vec = new Float32Array(this.length);
+  encode(value: T): Array<number> {
+    if (value == undefined) {
+      return new Array(this.length).fill(NaN);
+    }
+    const vec = new Array(this.length).fill(0);
     const index = this.#valueIndex.get(value);
-    vec.fill(0);
-    if (index) vec[index] = 1;
+    if (index !== undefined) vec[index] = 1;
     return vec;
   }
 
-  decode(vec: Float32Array) {
-    return this.#values.at(vec.findIndex((v) => v == 1));
+  decode(vec: Array<number>) {
+    if (vec.length !== this.length) {
+      throw new Error("Invalid vector length");
+    }
+    const index = vec.findIndex((v) => v === 1);
+    if (index < 0) {
+      return undefined;
+    }
+    return this.#values.at(index);
   }
 
   get length() {

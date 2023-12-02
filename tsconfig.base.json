@@ -3,6 +3,7 @@
     "newLine": "lf",
     "target": "ES2021",
     "module": "CommonJS",
+    "allowJs": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "useUnknownInCatchVariables": false,
@@ -14,8 +15,6 @@
     "experimentalDecorators": true,
     "declaration": true,
     "strict": true,
-    "lib": [
-      "ES2021"
-    ]
+    "lib": ["ES2021"]
   }
 }

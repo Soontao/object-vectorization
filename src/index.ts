@@ -1,6 +1,7 @@
 import { CDS, ElementDefinition, EntityDefinition, cwdRequireCDS } from "cds-internal-tool";
-import CategoryEncoder from "./CategoryEncoder";
 import { ANNOTATIONS, SUPPORTED_TYPES } from "./constants";
+import CategoryEncoder from "./encoders/CategoryEncoder";
+import { Vector } from "./type";
 
 type Predictor<T> = (value: T) => boolean;
 
@@ -17,7 +18,7 @@ export function multiFilter<T>(values: Array<T>, predictors: Array<Predictor<T>>
   return rtValues;
 }
 
-export async function calculateVectorForObject(meta: EntityDefinition, where: any): Float32Array {
+export async function calculateVectorForObject(meta: EntityDefinition, where: any): Vector {
   // calculate vector length
   const cds = cwdRequireCDS();
   const { SELECT } = cds.ql;

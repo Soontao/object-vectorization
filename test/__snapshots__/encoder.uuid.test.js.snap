@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UUIDEncoder Test Suite should support UUID encoder with snapshot test 1`] = `
+[
+  1130142421,
+  1581546030,
+  3988012204,
+  1101016454,
+]
+`;
+
+exports[`UUIDEncoder Test Suite should support UUID encoder with snapshot test 2`] = `"d59a5c43-2e7a-445e-ac3c-b4ed862da041"`;
