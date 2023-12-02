@@ -215,8 +215,8 @@ describe("Encoder Util Test Suite", () => {
           break;
       }
     }
-
     const encoder = new ObjectEncoder(mobilePhoneMeta);
+    const features = encoder.features();
     const dataset = generatedDataList.map((data) => encoder.encode(data));
     const clf = new RandomForestClassifier({ nEstimators: 20 });
     const [X_train, y_train, X_test, y_test] = splitTestData(dataset, generatedLabelIndexes);

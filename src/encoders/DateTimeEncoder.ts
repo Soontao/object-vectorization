@@ -11,8 +11,9 @@ export class DateTimeEncoder implements Encoder<string> {
     return ["year", "month", "day", "isoWeek", "hour", "minute", "second"].map((v) => `${name}_${v}`);
   }
 
-  encode(value: string): Vector {
-    const dateTime = DateTime.fromISO(value).setZone("utc");
+  encode(value: string | Date): Vector {
+    const dateTime =
+      value instanceof Date ? DateTime.fromJSDate(value).setZone("utc") : DateTime.fromISO(value).setZone("utc");
 
     if (!dateTime.isValid) {
       return new Array(this.length).fill(NaN);
