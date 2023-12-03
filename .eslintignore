@@ -1,6 +1,6 @@
 lib
 commitlint.config.js
 node_modules
-jest.config.js
+jest.config.mjs
 test
 *.json

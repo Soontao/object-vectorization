@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "newLine": "lf",
-    "target": "ES2021",
-    "module": "CommonJS",
+    "target": "ESNext",
+    "module": "ES2015",
     "allowJs": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
@@ -15,6 +15,6 @@
     "experimentalDecorators": true,
     "declaration": true,
     "strict": true,
-    "lib": ["ES2021"]
+    "lib": ["ES2021", "ES2015"]
   }
 }

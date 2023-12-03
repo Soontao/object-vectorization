@@ -1,11 +1,10 @@
-
 /**
  * @type {import("@jest/types").Config.ProjectConfig}
  */
-module.exports = {
+export default {
   testTimeout: 10 * 1000,
   transform: {
-    ".(js|ts|tsx)": "ts-jest"
+    ".(js|mjs|ts|tsx)": "ts-jest"
   },
   collectCoverageFrom: [
     "src/**/*.ts",
