@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UUIDEncoder Test Suite should return an array with the given name in features 1`] = `
+[
+  "myUUID_1",
+  "myUUID_2",
+  "myUUID_3",
+  "myUUID_4",
+]
+`;
+
 exports[`UUIDEncoder Test Suite should support UUID encoder with snapshot test 1`] = `
 [
   1130142421,

@@ -37,5 +37,47 @@ describe('UUIDEncoder Test Suite', () => {
     expect(decodedEmptyUUID).toBe(emptyUUID);
   });
 
+  it("should encode a UUID string to a Uint32Array", () => {
+    const encoder = new UUIDEncoder();
+    const uuid = "550e8400-e29b-41d4-a716-446655440000";
+    const expectedArray = [
+      8654421,
+      3561069538,
+      1715738279,
+      17493,
+    ];
+
+    const result = encoder.encode(uuid);
+
+    expect(result).toEqual(expectedArray);
+  });
+
+  it("should decode a Uint32Array to a UUID string", () => {
+    const encoder = new UUIDEncoder();
+    const uuid = "58319155-6b94-0000-3442-000052410000";
+    const inputArray = [
+      1435578712, 37995, 16948, 16722,
+    ];
+
+    const result = encoder.decode(inputArray);
+
+    expect(result).toEqual(uuid);
+  });
+
+  it("should return an array with the given name in features", () => {
+    const encoder = new UUIDEncoder();
+    const name = "myUUID";
+    const result = encoder.features(name);
+
+    expect(result).toHaveLength(4);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should return the correct length of the encoded array", () => {
+    const encoder = new UUIDEncoder();
+    const result = encoder.length;
+
+    expect(result).toEqual(4);
+  });
 
 });

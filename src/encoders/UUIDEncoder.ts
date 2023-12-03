@@ -7,10 +7,6 @@ export class UUIDEncoder implements Encoder<string> {
    * @returns
    */
   #hexToUint32Array(hexString: string) {
-    if (hexString.length % 2 !== 0) {
-      throw new Error("Hex string must have an even length");
-    }
-
     const buffer = Buffer.from(hexString, "hex");
 
     const numElements = Math.ceil(buffer.length / Uint32Array.BYTES_PER_ELEMENT);
@@ -23,7 +19,7 @@ export class UUIDEncoder implements Encoder<string> {
   }
 
   features(name: string): string[] {
-    return [name];
+    return [`${name}_1`, `${name}_2`, `${name}_3`, `${name}_4`];
   }
 
   encode(value: string): number[] {
