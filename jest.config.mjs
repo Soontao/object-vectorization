@@ -6,7 +6,7 @@ export default {
   extensionsToTreatAsEsm: [".ts"],
   testTimeout: 30 * 1000,
   transform: {
-    ".(ts|tsx)": [
+    ".(js|ts|tsx)": [
       "ts-jest",
       {
         useESM: true,
