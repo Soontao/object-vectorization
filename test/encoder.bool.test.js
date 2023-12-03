@@ -33,7 +33,6 @@ describe("BoolEncoder Test Suite", () => {
     const encoder = new BoolEncoder();
 
     // Act & Assert
-    expect(encoder.encode(null)[0]).toBeNaN()
-    expect(encoder.encode(null)[1]).toBeNaN()
+    expect(encoder.encode(null)).toEqual([0, 0])
   });
 });

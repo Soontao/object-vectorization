@@ -4,29 +4,35 @@ import { Encoder } from "./Encoder.js";
  * @human
  */
 export class CategoryEncoder<T = any> implements Encoder<T> {
-  #values: any[];
+  protected _values: any[];
 
-  #valueIndex: Map<T, number>;
+  _valueIndex: Map<T, number>;
 
-  constructor(values: Array<T>) {
-    this.#values = values;
-    this.#valueIndex = new Map();
+  _multi: boolean;
+
+  constructor(values: Array<T>, multi = false) {
+    this._values = values;
+    this._valueIndex = new Map();
+    this._multi = multi;
     for (const [index, value] of values.entries()) {
-      this.#valueIndex.set(value, index);
+      this._valueIndex.set(value, index);
     }
   }
 
   features(name: string): string[] {
-    return this.#values.map((v) => `${name}_is_${String(v)}`);
+    return this._values.map((v) => `${name}_is_${String(v)}`);
   }
 
   encode(value: T): Array<number> {
-    if (value == undefined) {
-      return new Array(this.length).fill(NaN);
-    }
     const vec = new Array(this.length).fill(0);
-    const index = this.#valueIndex.get(value);
-    if (index !== undefined) vec[index] = 1;
+    if (value == undefined || (value instanceof Array && value.length == 0)) {
+      return vec;
+    }
+    const values: Array<T> = value instanceof Array ? value : [value];
+    for (const singleValue of values) {
+      const index = this._valueIndex.get(singleValue);
+      if (index !== undefined) vec[index] = 1;
+    }
     return vec;
   }
 
@@ -34,15 +40,25 @@ export class CategoryEncoder<T = any> implements Encoder<T> {
     if (vec.length !== this.length) {
       throw new Error("Invalid vector length");
     }
-    const index = vec.findIndex((v) => v === 1);
-    if (index < 0) {
-      return undefined;
+    if (this._multi) {
+      const values = [];
+      for (const [idx, value] of vec.entries()) {
+        if (value == 1) {
+          values.push(this._values.at(idx));
+        }
+      }
+      return values;
+    } else {
+      const index = vec.findIndex((v) => v === 1);
+      if (index < 0) {
+        return undefined;
+      }
+      return this._values.at(index);
     }
-    return this.#values.at(index);
   }
 
   get length() {
-    return this.#values.length;
+    return this._values.length;
   }
 }
 

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MultiCategoryEncoder Test Suite should support encode with MultiCategoryEncoder 1`] = `
+[
+  "cat_1_has_A",
+  "cat_1_has_B",
+  "cat_1_has_C",
+]
+`;

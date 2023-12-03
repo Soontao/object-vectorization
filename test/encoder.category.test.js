@@ -42,7 +42,7 @@ describe("CategoryEncoder Test Suite", () => {
     const encodedNull = encoder.encode(null);
 
     // Assert
-    expect(encodedNull).toEqual([NaN, NaN, NaN]); // Assuming null is represented as all zeros
+    expect(encodedNull).toEqual([0, 0, 0]); // Assuming null is represented as all zeros
 
     // Decode and assert
     expect(encoder.decode(encodedNull)).toBeUndefined();

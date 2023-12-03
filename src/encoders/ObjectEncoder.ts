@@ -6,6 +6,7 @@ import DateTimeEncoder from "./DateTimeEncoder.js";
 import Encoder from "./Encoder.js";
 import FixedListEncoder from "./FixedListEncoder.js";
 import ObjectMetadata, { metadataValidator } from "./Metadata.js";
+import MultiCategoryEncoder from "./MultiCategoryEncoder.js";
 import NumericEncoder from "./NumericEncoder.js";
 import StatisticListEncoder from "./StatisticListEncoder.js";
 import UUIDEncoder from "./UUIDEncoder.js";
@@ -49,7 +50,10 @@ export function fillEncoders(meta: ObjectMetadata) {
         property._encoder = new BoolEncoder();
         break;
       case "category":
-        property._encoder = new CategoryEncoder(property.values as Array<any>);
+        property._encoder = new CategoryEncoder(property.values!);
+        break;
+      case "multi_category":
+        property._encoder = new MultiCategoryEncoder(property.values!);
         break;
       case "datetime":
         property._encoder = new DateTimeEncoder();

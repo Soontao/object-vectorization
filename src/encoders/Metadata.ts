@@ -13,6 +13,7 @@ export interface Property {
    */
   type:
     | "category"
+    | "multi_category"
     | "bool"
     | "uuid"
     | "numeric"
@@ -61,6 +62,7 @@ const metadataSchema: Schema = {
           type: "string",
           enum: [
             "category",
+            "multi_category",
             "bool",
             "uuid",
             "numeric",
@@ -80,7 +82,7 @@ const metadataSchema: Schema = {
       },
       required: ["name", "type"],
       if: {
-        properties: { type: { const: "category" } },
+        properties: { type: { const: ["category", "multi_category"] } },
       },
       then: {
         required: ["values"],
