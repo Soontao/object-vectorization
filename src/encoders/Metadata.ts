@@ -101,7 +101,7 @@ const metadataSchema: Schema = {
             },
           },
           then: {
-            required: ["position_dict"],
+            required: ["position_dict", "meta"],
           },
         },
       },
