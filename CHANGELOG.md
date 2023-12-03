@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/Soontao/cds-vectorize/compare/v0.1.2...v0.1.3) (2023-12-03)
+
+
+### Features
+
+* move to es6 ([c3dd80b](https://github.com/Soontao/cds-vectorize/commit/c3dd80bf9e8fe6f2680cc22076fbb807c7253f83))
+* target node next ([9b4b5f7](https://github.com/Soontao/cds-vectorize/commit/9b4b5f7b9a87bf44ac2f4aa740d32ac61fc6a73d))
+
+
+### Bug Fixes
+
+* NaN ([f9b6b50](https://github.com/Soontao/cds-vectorize/commit/f9b6b50366161bd9368b3288881a3b5e3a4a5606))
+
 ### [0.1.2](https://github.com/Soontao/cds-vectorize/compare/v0.1.1...v0.1.2) (2023-12-02)
 
 ### 0.1.1 (2023-12-02)
