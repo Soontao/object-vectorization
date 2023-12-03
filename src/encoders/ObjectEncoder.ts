@@ -3,7 +3,7 @@ import BoolEncoder from "./BoolEncoder.js";
 import CategoryEncoder from "./CategoryEncoder.js";
 import DateTimeEncoder from "./DateTimeEncoder.js";
 import Encoder from "./Encoder.js";
-import { FixedListEncoder } from "./FixedListEncoder.js";
+import FixedListEncoder from "./FixedListEncoder.js";
 import ObjectMetadata from "./Metadata.js";
 import NumericEncoder from "./NumericEncoder.js";
 import StatisticListEncoder from "./StatisticListEncoder.js";
