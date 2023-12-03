@@ -70,17 +70,48 @@ const metadataSchema: Schema = {
             "statistic_object_list",
           ],
         },
-        values: { type: "array" },
+        values: {
+          type: "array",
+          minItems: 1,
+          items: { type: ["string", "number", "boolean", "null"] },
+        },
         meta: { $ref: "#/definitions/ObjectMetadata" },
         position_dict: { type: "array" },
       },
       required: ["name", "type"],
+      if: {
+        properties: { type: { const: "category" } },
+      },
+      then: {
+        required: ["values"],
+      },
+      else: {
+        if: {
+          properties: {
+            type: { const: "object" },
+          },
+        },
+        then: {
+          required: ["meta"],
+        },
+        else: {
+          if: {
+            properties: {
+              type: { const: "fixed_object_list" },
+            },
+          },
+          then: {
+            required: ["position_dict"],
+          },
+        },
+      },
     },
     ObjectMetadata: {
       type: "object",
       properties: {
         properties: {
           type: "array",
+          minItems: 1,
           items: { $ref: "#/definitions/Property" },
         },
       },
@@ -89,7 +120,11 @@ const metadataSchema: Schema = {
   },
   type: "object",
   properties: {
-    properties: { type: "array", items: { $ref: "#/definitions/Property" } },
+    properties: {
+      type: "array",
+      minItems: 1,
+      items: { $ref: "#/definitions/Property" },
+    },
   },
   required: ["properties"],
 };
