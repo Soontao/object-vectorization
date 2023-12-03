@@ -43,5 +43,9 @@
     "machine-learning",
     "vector",
     "AI"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Soontao/object-vectorization"
+  }
 }
