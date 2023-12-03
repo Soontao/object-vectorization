@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ObjectEncoder Test Suite Throws error for invalid ObjectMetadata 1`] = `"not valid metadata, please check [ { keywordLocation: '#/required', instanceLocation: '#/properties' } ]"`;
+
 exports[`ObjectEncoder Test Suite should encode and decode an object correctly 1`] = `
 [
   1,

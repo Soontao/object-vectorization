@@ -1,4 +1,6 @@
+/* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/indent */
+import { Schema, validator } from "@exodus/schemasafe";
 import Encoder from "./Encoder.js";
 
 export interface Property {
@@ -40,12 +42,58 @@ export interface Property {
   _encoder?: Encoder;
 }
 
-// TODO: object metadata validator
 export interface ObjectMetadata {
   properties: Array<Property>;
-  _encoder_filled?: boolean;
-  _sorted?: boolean;
-  _length?: number;
+  readonly _encoder_filled?: boolean;
+  readonly _sorted?: boolean;
+  readonly _length?: number;
+  readonly _valid?: boolean;
 }
+
+const metadataSchema: Schema = {
+  $schema: "http://json-schema.org/draft-07/schema#",
+  definitions: {
+    Property: {
+      type: "object",
+      properties: {
+        name: { type: "string" },
+        type: {
+          type: "string",
+          enum: [
+            "category",
+            "bool",
+            "uuid",
+            "numeric",
+            "datetime",
+            "object",
+            "fixed_object_list",
+            "statistic_object_list",
+          ],
+        },
+        values: { type: "array" },
+        meta: { $ref: "#/definitions/ObjectMetadata" },
+        position_dict: { type: "array" },
+      },
+      required: ["name", "type"],
+    },
+    ObjectMetadata: {
+      type: "object",
+      properties: {
+        properties: {
+          type: "array",
+          items: { $ref: "#/definitions/Property" },
+        },
+      },
+      required: ["properties"],
+    },
+  },
+  type: "object",
+  properties: {
+    properties: { type: "array", items: { $ref: "#/definitions/Property" } },
+  },
+  required: ["properties"],
+};
+
+export const metadataValidator = validator(metadataSchema, { includeErrors: true });
 
 export default ObjectMetadata;

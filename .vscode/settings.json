@@ -7,7 +7,7 @@
     "source.organizeImports": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["autocrlf", "camelcase", "codecov", "datetime", "Exynos", "nocheck", "npmjs", "paren"],
+  "cSpell.words": ["autocrlf", "camelcase", "codecov", "datetime", "Exynos", "nocheck", "npmjs", "paren", "schemasafe"],
   "[cds]": {
     "editor.defaultFormatter": "SAPSE.vscode-cds"
   },

@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
+import { inspect } from "util";
 import BoolEncoder from "./BoolEncoder.js";
 import CategoryEncoder from "./CategoryEncoder.js";
 import DateTimeEncoder from "./DateTimeEncoder.js";
 import Encoder from "./Encoder.js";
 import FixedListEncoder from "./FixedListEncoder.js";
-import ObjectMetadata from "./Metadata.js";
+import ObjectMetadata, { metadataValidator } from "./Metadata.js";
 import NumericEncoder from "./NumericEncoder.js";
 import StatisticListEncoder from "./StatisticListEncoder.js";
 import UUIDEncoder from "./UUIDEncoder.js";
@@ -78,6 +79,13 @@ export function fillEncoders(meta: ObjectMetadata) {
 }
 
 export function sortMetaAndFillEncoders(meta: ObjectMetadata): ObjectMetadata {
+  if (meta._valid == undefined) {
+    const isValid = metadataValidator(meta as any);
+    if (!isValid) {
+      throw new Error(`not valid metadata, please check ${inspect(metadataValidator.errors)}`);
+    }
+  }
+  Object.defineProperty(meta, "_valid", { value: true, enumerable: false });
   return fillEncoders(sort(meta));
 }
 

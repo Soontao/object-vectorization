@@ -1,7 +1,7 @@
 // @ai
 // @human
 import { ObjectMetadata } from "../src/encoders/Metadata.js";
-import { ObjectEncoder, sort } from "../src/encoders/ObjectEncoder.js";
+import { ObjectEncoder, sort, sortMetaAndFillEncoders } from "../src/encoders/ObjectEncoder.js";
 
 describe("ObjectEncoder Test Suite", () => {
   it("should sort properties alphabetically", () => {
@@ -278,5 +278,16 @@ describe("ObjectEncoder Test Suite", () => {
 
     expect(encodedVector).toHaveLength(features.length);
     expect(encodedVector).toMatchSnapshot();
+  });
+
+  it("Throws error for invalid ObjectMetadata", () => {
+    const invalidObjectMetadata = {
+      // Missing required properties field
+      _encoder_filled: true,
+      _sorted: false,
+      _length: 5,
+    };
+
+    expect(() => sortMetaAndFillEncoders(invalidObjectMetadata as any)).toThrowErrorMatchingSnapshot();
   });
 });
