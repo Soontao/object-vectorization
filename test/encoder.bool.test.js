@@ -1,5 +1,5 @@
 // ai+human
-import BoolEncoder from "../src/encoders/BoolEncoder";
+import BoolEncoder from "../src/encoders/BoolEncoder.js";
 
 describe("BoolEncoder Test Suite", () => {
   it("should encode and decode boolean values correctly", () => {

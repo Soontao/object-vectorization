@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
-import BoolEncoder from "./BoolEncoder";
-import CategoryEncoder from "./CategoryEncoder";
-import DateTimeEncoder from "./DateTimeEncoder";
-import Encoder from "./Encoder";
-import { FixedListEncoder } from "./FixedListEncoder";
-import ObjectMetadata from "./Metadata";
-import NumericEncoder from "./NumericEncoder";
-import StatisticListEncoder from "./StatisticListEncoder";
-import UUIDEncoder from "./UUIDEncoder";
-import { Vector } from "./type";
+import BoolEncoder from "./BoolEncoder.js";
+import CategoryEncoder from "./CategoryEncoder.js";
+import DateTimeEncoder from "./DateTimeEncoder.js";
+import Encoder from "./Encoder.js";
+import { FixedListEncoder } from "./FixedListEncoder.js";
+import ObjectMetadata from "./Metadata.js";
+import NumericEncoder from "./NumericEncoder.js";
+import StatisticListEncoder from "./StatisticListEncoder.js";
+import UUIDEncoder from "./UUIDEncoder.js";
+import { Vector } from "./type.js";
 
 export function sort(meta: ObjectMetadata): ObjectMetadata {
   if (meta._sorted) {

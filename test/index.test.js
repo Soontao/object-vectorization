@@ -1,9 +1,9 @@
-import { ObjectEncoder, ObjectMetadata } from "../src";
+import { ObjectEncoder } from "../src/index.js";
 
 describe("README Test Suite", () => {
   it("should proceed README 1st example", () => {
     // Define Object Metadata
-    const simpleObjectMetadata: ObjectMetadata = {
+    const simpleObjectMetadata = {
       properties: [
         { name: "property1", type: "numeric" },
         { name: "property2", type: "category", values: ["value1", "value2", "value3"] },

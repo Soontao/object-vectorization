@@ -1,4 +1,4 @@
-import CategoryEncoder from "./CategoryEncoder";
+import CategoryEncoder from "./CategoryEncoder.js";
 
 /**
  * @human

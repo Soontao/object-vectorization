@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { faker } from "@faker-js/faker";
 import { RandomForestClassifier } from "ml-random-forest";
-import ObjectMetadata from "../src/encoders/Metadata";
-import ObjectEncoder from "../src/encoders/ObjectEncoder";
-import { Vector } from "../src/encoders/type";
+import ObjectMetadata from "../src/encoders/Metadata.js";
+import ObjectEncoder from "../src/encoders/ObjectEncoder.js";
+import { Vector } from "../src/encoders/type.js";
 
 const mobilePhoneMeta: ObjectMetadata = {
   properties: [

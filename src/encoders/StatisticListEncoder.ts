@@ -1,7 +1,7 @@
-import Encoder from "./Encoder";
-import ObjectMetadata from "./Metadata";
-import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder";
-import { Vector } from "./type";
+import Encoder from "./Encoder.js";
+import ObjectMetadata from "./Metadata.js";
+import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder.js";
+import { Vector } from "./type.js";
 
 type StatisticFunc = (values: Array<number>) => number;
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
-import Encoder from "./Encoder";
+import Encoder from "./Encoder.js";
 
 export interface Property {
   /**
@@ -40,6 +40,7 @@ export interface Property {
   _encoder?: Encoder;
 }
 
+// TODO: object metadata validator
 export interface ObjectMetadata {
   properties: Array<Property>;
   _encoder_filled?: boolean;

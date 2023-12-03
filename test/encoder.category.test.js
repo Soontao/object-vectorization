@@ -1,5 +1,5 @@
 // ai
-import CategoryEncoder from "../src/encoders/CategoryEncoder";
+import CategoryEncoder from "../src/encoders/CategoryEncoder.js";
 
 describe("CategoryEncoder Test Suite", () => {
 

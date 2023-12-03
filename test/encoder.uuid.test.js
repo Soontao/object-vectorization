@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { UUIDEncoder } from "../src/encoders/UUIDEncoder";
+import { UUIDEncoder } from "../src/encoders/UUIDEncoder.js";
 
 describe('UUIDEncoder Test Suite', () => {
 

@@ -1,7 +1,7 @@
 // @human
 // @ai
-import { FixedListEncoder } from "../src/encoders/FixedListEncoder";
-import { ObjectEncoder } from "../src/encoders/ObjectEncoder";
+import { FixedListEncoder } from "../src/encoders/FixedListEncoder.js";
+import { ObjectEncoder } from "../src/encoders/ObjectEncoder.js";
 
 describe("FixedListEncoder", () => {
   const meta = {

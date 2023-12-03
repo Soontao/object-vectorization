@@ -1,25 +1,26 @@
 /**
- * @type {import("@jest/types").Config.ProjectConfig}
+ * @type {import('ts-jest').JestConfigWithTsJest}
  */
 export default {
-  testTimeout: 10 * 1000,
+  preset: 'ts-jest/presets/default-esm',
+  extensionsToTreatAsEsm: [".ts"],
+  testTimeout: 30 * 1000,
   transform: {
-    ".(js|mjs|ts|tsx)": "ts-jest"
+    ".(ts|tsx)": [
+      "ts-jest",
+      {
+        useESM: true,
+      },
+    ],
   },
-  collectCoverageFrom: [
-    "src/**/*.ts",
-    "!**/node_modules/**"
-  ],
-  coveragePathIgnorePatterns: [
-    "node_modules/",
-  ],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
+  collectCoverageFrom: ["src/**/*.ts", "!**/node_modules/**"],
+  coveragePathIgnorePatterns: ["node_modules/"],
   testEnvironment: "node",
-  testRegex: "/test/.*\\.test\\.[tj]s$",
-  moduleFileExtensions: [
-    "ts",
-    "js",
-    "json"
-  ],
+  testRegex: "/test/.*\\.test\\.(mjs?|js?|ts?)$",
+  moduleFileExtensions: ["mjs", "ts", "js", "json"],
   coverageThreshold: {
     global: {
       branches: 80,
@@ -28,5 +29,5 @@ export default {
       statements: 85,
     },
   },
-  reporters: ["default", ["jest-junit", { outputDirectory: "coverage" }]]
+  reporters: ["default", ["jest-junit", { outputDirectory: "coverage" }]],
 };

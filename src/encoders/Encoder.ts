@@ -1,4 +1,4 @@
-import { Vector } from "./type";
+import { Vector } from "./type.js";
 
 export interface Encoder<T = any> {
   encode(value: T): Vector;

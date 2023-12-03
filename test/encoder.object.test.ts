@@ -1,7 +1,7 @@
 // @ai
 // @human
-import { ObjectMetadata } from "../src/encoders/Metadata";
-import { ObjectEncoder, sort } from "../src/encoders/ObjectEncoder";
+import { ObjectMetadata } from "../src/encoders/Metadata.js";
+import { ObjectEncoder, sort } from "../src/encoders/ObjectEncoder.js";
 
 describe("ObjectEncoder Test Suite", () => {
   it("should sort properties alphabetically", () => {

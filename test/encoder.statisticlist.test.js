@@ -1,4 +1,4 @@
-import { StatisticListEncoder } from "../src/encoders/StatisticListEncoder";
+import { StatisticListEncoder } from "../src/encoders/StatisticListEncoder.js";
 
 describe("StatisticListEncoder Test Suite", () => {
 

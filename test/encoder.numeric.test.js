@@ -1,5 +1,5 @@
 // ai
-import NumericEncoder from "../src/encoders/NumericEncoder";
+import NumericEncoder from "../src/encoders/NumericEncoder.js";
 
 describe("NumericEncoder Test Suite", () => {
   it("should encode and decode numeric values correctly", () => {

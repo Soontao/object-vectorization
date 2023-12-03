@@ -2,7 +2,7 @@
   "compilerOptions": {
     "newLine": "lf",
     "target": "ESNext",
-    "module": "ES2015",
+    "module": "NodeNext",
     "allowJs": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
@@ -10,7 +10,7 @@
     "sourceMap": true,
     "outDir": "lib",
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node16",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
