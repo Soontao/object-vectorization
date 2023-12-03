@@ -21,7 +21,7 @@ describe("StatisticListEncoder Test Suite", () => {
     const encoded = encoder.encode(testData);
     const features = encoder.features("list_a")
     // Check if the encoded vector has the correct length
-    expect(encoded.length).toBe(10);
+    expect(encoded.length).toBe(12);
     expect(features).toMatchSnapshot()
   });
 
@@ -29,7 +29,7 @@ describe("StatisticListEncoder Test Suite", () => {
     const features = encoder.features("age");
 
     expect(features).toBeTruthy();
-    expect(features.length).toBe(10);
+    expect(features.length).toBe(12);
   });
 
 

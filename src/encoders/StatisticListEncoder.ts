@@ -5,13 +5,26 @@ import { Vector } from "./type.js";
 
 type StatisticFunc = (values: Array<number>) => number;
 
+const variance: StatisticFunc = (values) => {
+  const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+  const squaredDifferencesSum = values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0);
+  return squaredDifferencesSum / values.length;
+};
+
+const diff: StatisticFunc = (values) => {
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+  return max - min;
+};
+
 const sum: StatisticFunc = (values) => values.reduce((pre, cur) => pre + cur, 0);
 
 const statisticFuncs: { [col: string]: StatisticFunc } = {
   max: (values) => Math.max(...values),
   min: (values) => Math.min(...values),
   avg: (values) => sum(values) / values.length,
-  count: (values) => values.length,
+  diff,
+  variance,
   sum,
 };
 
