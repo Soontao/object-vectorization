@@ -15,6 +15,15 @@ Object vectorization is crucial in scenarios where machine learning models requi
 
 ## Quick Start
 
+NOTE: app with `commonjs` module, please use `import` function to load this module instead, as traditional `require` is not working with esm module
+
+```js
+async function() {
+  const { ObjectMetadata, ObjectEncoder } = await import("object-vectorization")
+  // .....
+}
+```
+
 To encode a simple object to a vector, you'll follow these steps. Use the provided JavaScript comments to guide you through the process:
 
 ```ts
