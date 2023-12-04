@@ -259,7 +259,85 @@ The `ObjectEncoder` simplifies the process of working with complex objects in ma
 
 ### FixedListEncoder
 
-The `FixedListEncoder` class is responsible for encoding and decoding fixed lists within the object metadata. It ensures proper handling of missing or undefined values during encoding.
+The `FixedListEncoder` is a specialized encoder designed for encoding and decoding arrays of objects with a fixed structure. It is particularly useful when dealing with datasets where each element has a predefined set of properties.
+The `FixedListEncoder` is designed for encoding and decoding arrays of objects with a fixed structure. In the provided example, it is configured with metadata defining individual item properties, including nested objects. The position dictionary establishes the expected structure of the list.
+
+Usage Example:
+
+```js
+import FixedListEncoder, { ObjectMetadata } from 'object-vectorization';
+
+// Step 1: Define metadata for individual items
+const meta: ObjectMetadata = {
+  properties: [
+    { name: 'name', type: 'category', values: ['Alice', 'Bob', 'Charlie'] },
+    { name: 'age', type: 'numeric' },
+    {
+      name: 'details',
+      type: 'object',
+      meta: {
+        properties: [
+          { name: 'gender', type: 'category', values: ['Male', 'Female'] },
+          { name: 'city', type: 'category', values: ['New York', 'London'] },
+        ],
+      },
+    },
+  ],
+};
+
+// Step 2: Specify a position dictionary indicating the expected structure of the list
+const positionDict = [
+  { name: 'Alice' },
+  { name: 'Bob' },
+];
+
+// Step 3: Create an instance of FixedListEncoder with the defined metadata and position dictionary
+const encoder = new FixedListEncoder(meta, positionDict);
+
+// Step 4: Encode an array of objects using the initialized encoder
+const testData = [
+  { name: 'Alice', age: 25, details: { gender: 'Female', city: 'New York' } },
+  { name: 'Bob', age: 30, details: { gender: 'Male', city: 'London' } },
+  { name: 'Charlie', age: 35, details: { gender: 'Female', city: 'Paris' } },
+];
+
+const encodedVector = encoder.encode(testData);
+
+// Step 5: Retrieve features and the encoded vector for further analysis or storage
+const features = encoder.features();
+console.log('Features:', features);
+// [
+//   "root_0_age",
+//   "root_0_details_city_is_London",
+//   "root_0_details_city_is_New York",
+//   "root_0_details_gender_is_Female",
+//   "root_0_details_gender_is_Male",
+//   "root_0_name_is_Alice",
+//   "root_0_name_is_Bob",
+//   "root_0_name_is_Charlie",
+//   "root_1_age",
+//   "root_1_details_city_is_London",
+//   "root_1_details_city_is_New York",
+//   "root_1_details_gender_is_Female",
+//   "root_1_details_gender_is_Male",
+//   "root_1_name_is_Alice",
+//   "root_1_name_is_Bob",
+//   "root_1_name_is_Charlie",
+// ]
+console.log('Encoded Vector:', encodedVector);
+// [
+//   25, 0,  1, 1, 0, 1,
+//    0, 0, 30, 1, 0, 0,
+//    1, 0,  1, 0
+// ]
+
+
+
+// Step 6: Decode the vector back into an array of objects
+const decodedList = encoder.decode(encodedVector);
+```
+
+This example showcases the usage of `FixedListEncoder` for maintaining a fixed structure while encoding and decoding arrays of objects, including scenarios with nested structures.
 
 ### StatisticListEncoder
 

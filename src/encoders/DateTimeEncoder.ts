@@ -3,13 +3,15 @@ import { Encoder } from "./Encoder.js";
 import { Vector } from "./type.js";
 import { isNull, nullVector } from "./util.js";
 
+const FEATURES = ["year", "month", "day", "isoWeek", "hour", "minute", "second"];
+
 /**
  * @ai
  * @human
  */
 export class DateTimeEncoder implements Encoder<string> {
   features(name: string): string[] {
-    return ["year", "month", "day", "isoWeek", "hour", "minute", "second"].map((v) => `${name}_${v}`);
+    return FEATURES.map((v) => `${name}_${v}`);
   }
 
   encode(value: string | Date): Vector {
@@ -41,9 +43,9 @@ export class DateTimeEncoder implements Encoder<string> {
       throw new TypeError("Invalid vector length");
     }
 
-    const [year, month, day, isoWeek, hour, minute, second] = vec;
+    const [year, month, day, , hour, minute, second] = vec;
 
-    let dateTime = DateTime.fromObject(
+    const dateTime = DateTime.fromObject(
       {
         year,
         month,
@@ -54,11 +56,6 @@ export class DateTimeEncoder implements Encoder<string> {
       },
       { zone: "utc" },
     );
-
-    // Check if ISO week is provided, adjust the date accordingly
-    if (!isNaN(isoWeek)) {
-      dateTime = dateTime.set({ weekNumber: isoWeek });
-    }
 
     return dateTime.setZone("utc").toISO() as string;
   }

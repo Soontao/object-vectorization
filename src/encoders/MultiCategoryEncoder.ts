@@ -1,6 +1,8 @@
 import CategoryEncoder from "./CategoryEncoder.js";
 
 /**
+ * MultiCategoryEncoder
+ *
  * @human
  */
 export class MultiCategoryEncoder<T> extends CategoryEncoder<Array<T>> {
