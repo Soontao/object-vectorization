@@ -1,8 +1,8 @@
 // ai
 import CategoryEncoder from "../src/encoders/CategoryEncoder.js";
+import { nullVector } from "../src/encoders/util.js";
 
 describe("CategoryEncoder Test Suite", () => {
-
   it("should encode and decode values correctly", () => {
     // Arrange
     const categories = ["A", "B", "C"];
@@ -24,13 +24,12 @@ describe("CategoryEncoder Test Suite", () => {
     expect(encoder.decode(encodedC)).toBe("C");
   });
 
-
   it("should support list feature names", () => {
     // Arrange
     const categories = ["A", "B", "C"];
     const encoder = new CategoryEncoder(categories);
 
-    expect(encoder.features("c_1")).toMatchSnapshot()
+    expect(encoder.features("c_1")).toMatchSnapshot();
   });
 
   it("should handle null value", () => {
@@ -42,10 +41,10 @@ describe("CategoryEncoder Test Suite", () => {
     const encodedNull = encoder.encode(null);
 
     // Assert
-    expect(encodedNull).toEqual([0, 0, 0]); // Assuming null is represented as all zeros
+    expect(encodedNull).toEqual(nullVector(encoder.length)); // Assuming null is represented as all zeros
 
     // Decode and assert
-    expect(encoder.decode(encodedNull)).toBeUndefined();
+    expect(encoder.decode(encodedNull)).toBeNull();
   });
 
   it("should encode and decode values correctly for different types", () => {
@@ -71,5 +70,4 @@ describe("CategoryEncoder Test Suite", () => {
     expect(encoder.decode(encodedNumber42)).toBe(42);
     expect(encoder.decode(encodedBoolTrue)).toBe(true);
   });
-
 });

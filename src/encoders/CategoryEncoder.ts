@@ -1,4 +1,5 @@
 import { Encoder } from "./Encoder.js";
+import { isNull, isNullVector, nullVector } from "./util.js";
 
 /**
  * @human
@@ -24,6 +25,9 @@ export class CategoryEncoder<T = any> implements Encoder<T> {
   }
 
   encode(value: T): Array<number> {
+    if (isNull(value)) {
+      return nullVector(this.length);
+    }
     const vec = new Array(this.length).fill(0);
     if (value == undefined || (value instanceof Array && value.length == 0)) {
       return vec;
@@ -39,6 +43,9 @@ export class CategoryEncoder<T = any> implements Encoder<T> {
   decode(vec: Array<number>) {
     if (vec.length !== this.length) {
       throw new Error("Invalid vector length");
+    }
+    if (isNullVector(vec)) {
+      return null as any;
     }
     if (this._multi) {
       const values = [];

@@ -1,5 +1,6 @@
 // ai+human
 import BoolEncoder from "../src/encoders/BoolEncoder.js";
+import { nullVector } from "../src/encoders/util.js";
 
 describe("BoolEncoder Test Suite", () => {
   it("should encode and decode boolean values correctly", () => {
@@ -17,6 +18,9 @@ describe("BoolEncoder Test Suite", () => {
     expect(encodedFalse).toEqual([0, 1]);
     expect(decodedTrue).toBe(true);
     expect(decodedFalse).toBe(false);
+
+    expect(encoder.encode(null)).toEqual(nullVector(encoder.length));
+    expect(encoder.encode(undefined)).toEqual(nullVector(encoder.length));
   });
 
   it("should handle invalid vector length during decoding", () => {
@@ -33,6 +37,7 @@ describe("BoolEncoder Test Suite", () => {
     const encoder = new BoolEncoder();
 
     // Act & Assert
-    expect(encoder.encode(null)).toEqual([0, 0])
+    expect(encoder.encode(null)).toEqual(nullVector(encoder.length));
+    expect(encoder.decode(nullVector(encoder.length))).toBeNull();
   });
 });

@@ -1,6 +1,6 @@
 import { Encoder } from "./Encoder.js";
 import { Vector } from "./type.js";
-import { isNull, nullVector } from "./util.js";
+import { isNull, isNullVector, nullVector } from "./util.js";
 
 /**
  * @ai
@@ -21,6 +21,10 @@ export class NumericEncoder implements Encoder<number> {
   decode(vec: Vector): number {
     if (vec.length !== this.length) {
       throw new Error("Invalid vector length");
+    }
+
+    if (isNullVector(vec)) {
+      return null as any;
     }
 
     return vec[0];
