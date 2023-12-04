@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { Encoder } from "./Encoder.js";
 import { Vector } from "./type.js";
+import { isNull, nullVector } from "./util.js";
 
 /**
  * @ai
@@ -12,11 +13,14 @@ export class DateTimeEncoder implements Encoder<string> {
   }
 
   encode(value: string | Date): Vector {
+    if (isNull(value)) {
+      return nullVector(this.length);
+    }
     const dateTime =
       value instanceof Date ? DateTime.fromJSDate(value).setZone("utc") : DateTime.fromISO(value).setZone("utc");
 
     if (!dateTime.isValid) {
-      return new Array(this.length).fill(NaN);
+      return nullVector(this.length);
     }
 
     const encodedVector = [
@@ -35,10 +39,6 @@ export class DateTimeEncoder implements Encoder<string> {
   decode(vec: Vector): string {
     if (vec.length !== this.length) {
       throw new TypeError("Invalid vector length");
-    }
-
-    if (vec.every(Number.isNaN)) {
-      return "1970-01-01T00:00:00.000Z";
     }
 
     const [year, month, day, isoWeek, hour, minute, second] = vec;

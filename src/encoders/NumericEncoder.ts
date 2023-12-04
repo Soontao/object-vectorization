@@ -1,5 +1,6 @@
 import { Encoder } from "./Encoder.js";
 import { Vector } from "./type.js";
+import { isNull, nullVector } from "./util.js";
 
 /**
  * @ai
@@ -10,8 +11,8 @@ export class NumericEncoder implements Encoder<number> {
   }
 
   encode(value: number): Vector {
-    if (isNaN(value)) {
-      throw new Error("Invalid numeric value");
+    if (isNull(value)) {
+      return nullVector(this.length);
     }
 
     return [value];

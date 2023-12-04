@@ -1,4 +1,5 @@
 import { Encoder } from "./Encoder.js";
+import { isNull, nullVector } from "./util.js";
 
 export class UUIDEncoder implements Encoder<string> {
   /**
@@ -23,6 +24,9 @@ export class UUIDEncoder implements Encoder<string> {
   }
 
   encode(value: string): number[] {
+    if (isNull(value)) {
+      return nullVector(this.length);
+    }
     value = value.replaceAll("-", "");
     return this.#hexToUint32Array(value);
   }

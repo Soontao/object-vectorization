@@ -1,5 +1,6 @@
 // ai
 import NumericEncoder from "../src/encoders/NumericEncoder.js";
+import { nullVector } from "../src/encoders/util.js";
 
 describe("NumericEncoder Test Suite", () => {
   it("should encode and decode numeric values correctly", () => {
@@ -21,7 +22,7 @@ describe("NumericEncoder Test Suite", () => {
     const encoder = new NumericEncoder();
 
     // Act & Assert
-    expect(() => encoder.encode(NaN)).toThrow("Invalid numeric value");
+    expect(encoder.encode(NaN)).toEqual(nullVector(encoder.length));
   });
 
   it("should handle invalid vector length during decoding", () => {

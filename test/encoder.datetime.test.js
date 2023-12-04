@@ -1,5 +1,6 @@
 // ai+human
 import DateTimeEncoder from "../src/encoders/DateTimeEncoder.js";
+import { nullVector } from "../src/encoders/util.js";
 
 describe("DateTimeEncoder Test Suite", () => {
   it("should encode and decode date-time values correctly", () => {
@@ -26,7 +27,7 @@ describe("DateTimeEncoder Test Suite", () => {
     const encodedVector = encoder.encode("invalid-date");
 
     // Assert
-    const expectedVector = [NaN, NaN, NaN, NaN, NaN, NaN, NaN];
+    const expectedVector = nullVector(encoder.length);
     expect(encodedVector).toEqual(expectedVector);
   });
 
@@ -42,13 +43,12 @@ describe("DateTimeEncoder Test Suite", () => {
   it("should handle all NaN values during decoding", () => {
     // Arrange
     const encoder = new DateTimeEncoder();
-    const nanVector = [NaN, NaN, NaN, NaN, NaN, NaN, NaN];
+    const nanVector = nullVector(encoder.length);
 
     // Act
     const decodedDateTime = encoder.decode(nanVector);
 
     // Assert
-    const expectedDefaultDateTime = "1970-01-01T00:00:00.000Z";
-    expect(decodedDateTime).toBe(expectedDefaultDateTime);
+    expect(decodedDateTime).toBe(null);
   });
 });
