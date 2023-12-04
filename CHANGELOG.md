@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/Soontao/object-vectorization/compare/v0.1.3...v0.1.4) (2023-12-04)
+
+
+### Features
+
+* encode/decode null ([941cc80](https://github.com/Soontao/object-vectorization/commit/941cc80c9a9a1489eeef9312aef5e547c6ad8acb))
+* multi category ([ae4cf76](https://github.com/Soontao/object-vectorization/commit/ae4cf76257cdd57d750d1a52e93ff08f786fa6d3))
+* support null value ([2deac19](https://github.com/Soontao/object-vectorization/commit/2deac19768bcae025be5f59faec4b6e4ba7bc679))
+
 ### [0.1.3](https://github.com/Soontao/cds-vectorize/compare/v0.1.2...v0.1.3) (2023-12-03)
 
 
