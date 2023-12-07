@@ -102,6 +102,7 @@ exports[`ObjectEncoder Test Suite should encode and decode correctly with nested
 
 exports[`ObjectEncoder Test Suite should encode and decode correctly with nested object and list object 3`] = `
 [
+  "root_object_code",
   "root_prop_bool_is_true",
   "root_prop_bool_is_false",
   "root_prop_category_is_A",
@@ -149,6 +150,7 @@ exports[`ObjectEncoder Test Suite should encode and decode correctly with nested
 
 exports[`ObjectEncoder Test Suite should encode and decode correctly with nested object and list object 4`] = `
 [
+  2819205129,
   1,
   0,
   0,

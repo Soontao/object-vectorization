@@ -7,11 +7,22 @@
     "source.organizeImports": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["autocrlf", "camelcase", "codecov", "datetime", "Exynos", "nocheck", "npmjs", "paren", "schemasafe"],
+  "cSpell.words": [
+    "autocrlf",
+    "camelcase",
+    "codecov",
+    "datetime",
+    "Exynos",
+    "murmurhash",
+    "nocheck",
+    "npmjs",
+    "paren",
+    "schemasafe"
+  ],
   "[cds]": {
     "editor.defaultFormatter": "SAPSE.vscode-cds"
   },
   "jest.autoRun": "off",
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 80
+  "editor.wordWrapColumn": 120
 }

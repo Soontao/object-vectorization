@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MurmurEncoder Test Suite should support int test 1`] = `
+[
+  4212377875,
+]
+`;
+
+exports[`MurmurEncoder Test Suite should support int test 2`] = `
+[
+  2026014530,
+]
+`;

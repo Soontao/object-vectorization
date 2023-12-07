@@ -1,15 +1,7 @@
 /* eslint-disable camelcase */
 import { inspect } from "util";
-import BoolEncoder from "./BoolEncoder.js";
-import CategoryEncoder from "./CategoryEncoder.js";
-import DateTimeEncoder from "./DateTimeEncoder.js";
 import Encoder from "./Encoder.js";
-import FixedListEncoder from "./FixedListEncoder.js";
-import ObjectMetadata, { metadataValidator } from "./Metadata.js";
-import MultiCategoryEncoder from "./MultiCategoryEncoder.js";
-import NumericEncoder from "./NumericEncoder.js";
-import StatisticListEncoder from "./StatisticListEncoder.js";
-import UUIDEncoder from "./UUIDEncoder.js";
+import ObjectMetadata, { mapEncoder, metadataValidator } from "./Metadata.js";
 import { Vector } from "./type.js";
 
 export function sort(meta: ObjectMetadata): ObjectMetadata {
@@ -45,37 +37,7 @@ export function fillEncoders(meta: ObjectMetadata) {
     if (property.meta) {
       sortMetaAndFillEncoders(property.meta!); // inner meta create encoders firstly
     }
-    switch (property.type) {
-      case "bool":
-        property._encoder = new BoolEncoder();
-        break;
-      case "category":
-        property._encoder = new CategoryEncoder(property.values!);
-        break;
-      case "multi_category":
-        property._encoder = new MultiCategoryEncoder(property.values!);
-        break;
-      case "datetime":
-        property._encoder = new DateTimeEncoder();
-        break;
-      case "numeric":
-        property._encoder = new NumericEncoder();
-        break;
-      case "object":
-        property._encoder = new ObjectEncoder(property.meta!);
-        break;
-      case "uuid":
-        property._encoder = new UUIDEncoder();
-        break;
-      case "fixed_object_list":
-        property._encoder = new FixedListEncoder(property.meta!, property.position_dict!);
-        break;
-      case "statistic_object_list":
-        property._encoder = new StatisticListEncoder(property.meta!);
-        break;
-      default:
-        throw new TypeError(`cannot handle type ${property.type} for ${property.name}`);
-    }
+    property._encoder = mapEncoder(property);
   }
   calculateObjectVecLength(meta);
   Object.defineProperty(meta, "_encoder_filled", { value: true, enumerable: false });

@@ -1,7 +1,17 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/indent */
 import { Schema, validator } from "@exodus/schemasafe";
+import BoolEncoder from "./BoolEncoder.js";
+import CategoryEncoder from "./CategoryEncoder.js";
+import DateTimeEncoder from "./DateTimeEncoder.js";
 import Encoder from "./Encoder.js";
+import FixedListEncoder from "./FixedListEncoder.js";
+import MultiCategoryEncoder from "./MultiCategoryEncoder.js";
+import MurmurEncoder from "./MurmurEncoder.js";
+import NumericEncoder from "./NumericEncoder.js";
+import ObjectEncoder from "./ObjectEncoder.js";
+import StatisticListEncoder from "./StatisticListEncoder.js";
+import UUIDEncoder from "./UUIDEncoder.js";
 
 export interface Property {
   /**
@@ -13,6 +23,7 @@ export interface Property {
    */
   type:
     | "category"
+    | "murmur_hash"
     | "multi_category"
     | "bool"
     | "uuid"
@@ -36,6 +47,11 @@ export interface Property {
    * only for fixed_object_list, used to match input list item, then assign to correct position
    */
   position_dict?: Array<any>;
+
+  /**
+   * only for hash encoders like murmur_hash
+   */
+  hash_seed?: number;
 
   /**
    * internal _encoder
@@ -62,6 +78,7 @@ const metadataSchema: Schema = {
           type: "string",
           enum: [
             "category",
+            "murmur_hash",
             "multi_category",
             "bool",
             "uuid",
@@ -79,6 +96,7 @@ const metadataSchema: Schema = {
         },
         meta: { $ref: "#/definitions/ObjectMetadata" },
         position_dict: { type: "array" },
+        hash_seed: { type: "number" },
       },
       required: ["name", "type"],
       if: {
@@ -130,6 +148,33 @@ const metadataSchema: Schema = {
   },
   required: ["properties"],
 };
+
+export function mapEncoder(property: Property) {
+  switch (property.type) {
+    case "bool":
+      return new BoolEncoder();
+    case "category":
+      return new CategoryEncoder(property.values!);
+    case "multi_category":
+      return new MultiCategoryEncoder(property.values!);
+    case "datetime":
+      return new DateTimeEncoder();
+    case "numeric":
+      return new NumericEncoder();
+    case "object":
+      return new ObjectEncoder(property.meta!);
+    case "uuid":
+      return new UUIDEncoder();
+    case "fixed_object_list":
+      return new FixedListEncoder(property.meta!, property.position_dict!);
+    case "statistic_object_list":
+      return new StatisticListEncoder(property.meta!);
+    case "murmur_hash":
+      return new MurmurEncoder(property.hash_seed);
+    default:
+      throw new TypeError(`cannot handle type ${property.type} for ${property.name}`);
+  }
+}
 
 export const metadataValidator = validator(metadataSchema, { includeErrors: true });
 

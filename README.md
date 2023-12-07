@@ -11,7 +11,7 @@
 
 ## Overview
 
-Object vectorization is crucial in scenarios where machine learning models require numerical input, and the data is initially presented as structured objects. This framework facilitates the transformation of diverse object types, including `categories`, `numbers`, `booleans`, `datetime`, and `nested structures`, into numerical `vectors` that can be fed into machine learning models.
+Object vectorization is crucial in scenarios where machine learning models require numerical input, and the data is initially presented as structured objects. This framework facilitates the transformation of diverse object types, including `categories`,`identifier`,`uuid`, `numbers`, `booleans`, `datetime`, and `nested structures`, into numerical `vectors` that can be fed into machine learning models.
 
 ## Quick Start
 
@@ -90,6 +90,7 @@ const basicMetadata = {
 In the `ObjectMetadata`, each property must have a specified `type` to define its nature. The supported types include:
 
 - **numeric**: Represents numeric values.
+- **murmur_hash**: Represents string identifiers.
 - **category**: Denotes categorical values with predefined options.
 - **datetime**: Signifies date and time values.
 - **bool**: Represents Boolean values.

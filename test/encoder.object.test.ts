@@ -221,8 +221,9 @@ describe("ObjectEncoder Test Suite", () => {
 
   it("should encode and decode correctly with nested object and list object", () => {
     // Sample metadata for testing
-    const metadata: any = {
+    const metadata: ObjectMetadata = {
       properties: [
+        { name: "object_code", type: "murmur_hash" },
         { name: "prop_bool", type: "bool" },
         { name: "prop_category", type: "category", values: ["A", "B", "C"] },
         { name: "prop_datetime", type: "datetime" },
@@ -253,6 +254,7 @@ describe("ObjectEncoder Test Suite", () => {
 
     // Sample object data for testing
     const testData = {
+      object_code: "T_001",
       prop_bool: true,
       prop_category: "B",
       prop_datetime: "2023-01-01T12:30:00.000Z",
