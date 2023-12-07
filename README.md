@@ -260,8 +260,7 @@ The `ObjectEncoder` simplifies the process of working with complex objects in ma
 
 ### FixedListEncoder
 
-The `FixedListEncoder` is a specialized encoder designed for encoding and decoding arrays of objects with a fixed structure. It is particularly useful when dealing with datasets where each element has a predefined set of properties.
-The `FixedListEncoder` is designed for encoding and decoding arrays of objects with a fixed structure. In the provided example, it is configured with metadata defining individual item properties, including nested objects. The position dictionary establishes the expected structure of the list.
+The `FixedListEncoder` is a specialized encoder designed for encoding and decoding arrays of objects with a fixed structure. It is particularly useful when dealing with datasets where each element has a predefined set of properties. it's designed for encoding and decoding arrays of objects with a fixed order. In the provided example, it is configured with metadata defining individual item properties, including nested objects. The position dictionary establishes the expected structure of the list.
 
 Usage Example:
 
