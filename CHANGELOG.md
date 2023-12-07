@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/Soontao/object-vectorization/compare/v0.1.4...v0.1.5) (2023-12-07)
+
+
+### Features
+
+* new identifier encoder ([6526fb9](https://github.com/Soontao/object-vectorization/commit/6526fb9e2f2d33b4eb185c01631eb6738c6635b4))
+
+
+### Bug Fixes
+
+* Fixed List NaN ([dbda998](https://github.com/Soontao/object-vectorization/commit/dbda998bd89ab44fed8bd11aad24f877442b0b64))
+
 ### [0.1.4](https://github.com/Soontao/object-vectorization/compare/v0.1.3...v0.1.4) (2023-12-04)
 
 
