@@ -9,7 +9,7 @@
     "npm": ">=9"
   },
   "scripts": {
-    "test": "jest --detectOpenHandles --passWithNoTests",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --passWithNoTests",
     "build": "tsc",
     "postbuild": "tsc --noEmit --p tsconfig.lib.json",
     "lint": "eslint src --fix",
