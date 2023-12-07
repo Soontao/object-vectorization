@@ -47,11 +47,10 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
         continue;
       }
       const item = value.find((obj) => match(obj, partialItem));
-      if (!item) {
+      if (item == undefined) {
         encodedVector.push(...nullVector(this.#objectEncoder.length));
       } else {
-        const itemVector = this.#objectEncoder.encode(item!);
-        encodedVector.push(...itemVector);
+        encodedVector.push(...this.#objectEncoder.encode(item!));
       }
     }
 
