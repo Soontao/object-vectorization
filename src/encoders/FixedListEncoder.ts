@@ -2,7 +2,7 @@ import Encoder from "./Encoder.js";
 import ObjectMetadata from "./Metadata.js";
 import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder.js";
 import { Vector } from "./type.js";
-import { isNullVector } from "./util.js";
+import { isNullVector, nullVector } from "./util.js";
 
 export function match<T = any>(obj: T, part: any): part is Partial<T> {
   return Object.entries(part).every(([p, v]) => (obj as any)[p] === v);
@@ -44,7 +44,7 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
     for (const partialItem of this.#positionDict) {
       const item = value.find((obj) => match(obj, partialItem));
       if (!item) {
-        encodedVector.push(...new Array(this.#objectEncoder.length).fill(NaN));
+        encodedVector.push(...nullVector(this.#objectEncoder.length));
       } else {
         const itemVector = this.#objectEncoder.encode(item!);
         encodedVector.push(...itemVector);
@@ -59,7 +59,7 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
       throw new Error("FixedListEncoder: Invalid vector length");
     }
     if (isNullVector(vec)) {
-      return null as any;
+      return [];
     }
 
     const decodedList: T[] = [];

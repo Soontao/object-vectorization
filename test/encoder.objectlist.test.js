@@ -2,6 +2,7 @@
 // @ai
 import { FixedListEncoder } from "../src/encoders/FixedListEncoder.js";
 import { ObjectEncoder } from "../src/encoders/ObjectEncoder.js";
+import { nullVector } from "../src/encoders/util.js";
 
 describe("FixedListEncoder", () => {
   const meta = {
@@ -26,14 +27,14 @@ describe("FixedListEncoder", () => {
 
   it("should encode and decode correctly", () => {
     const encoded = encoder.encode(testData);
-    expect(encoded).toMatchSnapshot()
+    expect(encoded).toMatchSnapshot();
     const decoded = encoder.decode(encoded);
-    expect(decoded).toHaveLength(2)
-    expect(decoded).toMatchSnapshot()
+    expect(decoded).toHaveLength(2);
+    expect(decoded).toMatchSnapshot();
   });
 
   it("should encode with NaN for missing items", () => {
-    const objEncoder = new ObjectEncoder(meta)
+    const objEncoder = new ObjectEncoder(meta);
     const testDataSubset = [
       { name: "Alice", age: 25 },
       { name: "Charlie", age: 35 },
@@ -46,16 +47,14 @@ describe("FixedListEncoder", () => {
       // Encoded Alice
       ...objEncoder.encode({ name: "Alice", age: 25, length: 2 }),
       // Encoded Bob (missing)
-      ...new Array(objEncoder.length).fill(NaN),
+      ...nullVector(objEncoder.length),
     ]);
   });
 
   it("should handle invalid vector length during decoding", () => {
     const invalidVector = [1, 2, 3, 4, 5];
 
-    expect(() => encoder.decode(invalidVector)).toThrow(
-      "FixedListEncoder: Invalid vector length"
-    );
+    expect(() => encoder.decode(invalidVector)).toThrow("FixedListEncoder: Invalid vector length");
   });
 
   it("should handle decoding with NaN list", () => {
@@ -64,9 +63,8 @@ describe("FixedListEncoder", () => {
     const decoded = encoder.decode(nanEncoded);
 
     // Check if the decoded list contains undefined for each item
-    expect(decoded).toHaveLength(0)
+    expect(decoded).toHaveLength(0);
   });
-
 
   it("should handle encoding and decoding an empty input list", () => {
     const emptyInputList = [];
@@ -78,9 +76,7 @@ describe("FixedListEncoder", () => {
     expect(decoded).toHaveLength(0);
   });
 
-
   it("should encode and decode correctly with nested object in list", () => {
-
     const meta = {
       properties: [
         { name: "name", type: "category", values: ["Alice", "Bob", "Charlie"] },
@@ -98,10 +94,7 @@ describe("FixedListEncoder", () => {
       ],
     };
 
-    const positionDict = [
-      { name: "Alice" },
-      { name: "Bob" },
-    ];
+    const positionDict = [{ name: "Alice" }, { name: "Bob" }];
 
     const encoder = new FixedListEncoder(meta, positionDict);
 
@@ -111,15 +104,13 @@ describe("FixedListEncoder", () => {
       { name: "Charlie", age: 35, details: { gender: "Female", city: "Paris" } },
     ];
     const encoded = encoder.encode(testData);
-    const features = encoder.features()
-    expect(features).toMatchSnapshot()
+    const features = encoder.features();
+    expect(features).toMatchSnapshot();
     expect(encoded).toMatchSnapshot();
-    expect(encoded).toHaveLength(features.length)
+    expect(encoded).toHaveLength(features.length);
 
     const decoded = encoder.decode(encoded);
     expect(decoded).toHaveLength(2);
     expect(decoded).toMatchSnapshot();
   });
-
-
 });
