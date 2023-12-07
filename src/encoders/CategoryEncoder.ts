@@ -1,6 +1,9 @@
 import { Encoder } from "./Encoder.js";
 import { isNull, isNullVector, nullVector } from "./util.js";
 
+const POSITIVE_VALUE = 1;
+const NEGATIVE_VALUE = 0;
+
 /**
  * @human
  */
@@ -28,14 +31,14 @@ export class CategoryEncoder<T = any> implements Encoder<T> {
     if (isNull(value)) {
       return nullVector(this.length);
     }
-    const vec = new Array(this.length).fill(0);
-    if (value == undefined || (value instanceof Array && value.length == 0)) {
+    const vec = new Array(this.length).fill(NEGATIVE_VALUE);
+    if (value == undefined || (this._multi && (value as Array<any>).length == 0)) {
       return vec;
     }
     const values: Array<T> = value instanceof Array ? value : [value];
     for (const singleValue of values) {
       const index = this._valueIndex.get(singleValue);
-      if (index !== undefined) vec[index] = 1;
+      if (index !== undefined) vec[index] = POSITIVE_VALUE;
     }
     return vec;
   }
@@ -50,15 +53,15 @@ export class CategoryEncoder<T = any> implements Encoder<T> {
     if (this._multi) {
       const values = [];
       for (const [idx, value] of vec.entries()) {
-        if (value == 1) {
+        if (value == POSITIVE_VALUE) {
           values.push(this._values.at(idx));
         }
       }
       return values;
     } else {
-      const index = vec.findIndex((v) => v === 1);
+      const index = vec.findIndex((v) => v === POSITIVE_VALUE);
       if (index < 0) {
-        return undefined;
+        return null;
       }
       return this._values.at(index);
     }

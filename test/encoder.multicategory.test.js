@@ -16,5 +16,7 @@ describe("MultiCategoryEncoder Test Suite", () => {
     const e = new MultiCategoryEncoder(["A", "B", "C"]);
     expect(e.decode(["A", "B", "C"])).toEqual([]);
     expect(e.decode([0, 1, 1])).toEqual(["B", "C"]);
+    expect(e.decode([0, 0, 0])).toEqual([]);
+    expect(e.decode(nullVector(e.length))).toBeNull();
   });
 });

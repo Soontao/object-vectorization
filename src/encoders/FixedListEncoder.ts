@@ -2,10 +2,10 @@ import Encoder from "./Encoder.js";
 import ObjectMetadata from "./Metadata.js";
 import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder.js";
 import { Vector } from "./type.js";
-import { isNullVector, nullVector } from "./util.js";
+import { isNull, isNullVector, nullVector } from "./util.js";
 
 export function match<T = any>(obj: T, part: any): part is Partial<T> {
-  return Object.entries(part).every(([p, v]) => (obj as any)[p] === v);
+  return Object.entries(part)?.every?.(([p, v]) => (obj as any)?.[p] === v);
 }
 
 /**
@@ -42,6 +42,10 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
     const encodedVector: number[] = new Array(0);
 
     for (const partialItem of this.#positionDict) {
+      if (isNull(partialItem)) {
+        encodedVector.push(...nullVector(this.#objectEncoder.length));
+        continue;
+      }
       const item = value.find((obj) => match(obj, partialItem));
       if (!item) {
         encodedVector.push(...nullVector(this.#objectEncoder.length));
@@ -70,9 +74,9 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
 
       const itemVector = vec.slice(startIndex, endIndex);
 
-      // Check if all values in the itemVector are NaN
-      if (itemVector.every((val) => isNaN(val))) {
-        // do nothing
+      // Check wether sub item is full null value vector
+      if (isNullVector(itemVector)) {
+        decodedList.push(null as any);
       } else {
         const decodedItem = this.#objectEncoder.decode(itemVector);
         decodedList.push(decodedItem);

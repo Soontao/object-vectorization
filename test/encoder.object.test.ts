@@ -280,6 +280,8 @@ describe("ObjectEncoder Test Suite", () => {
 
     expect(encodedVector).toHaveLength(features.length);
     expect(encodedVector).toMatchSnapshot();
+
+    expect(objectEncoder.encode(null)).toMatchSnapshot("null value");
   });
 
   it("Throws error for invalid ObjectMetadata", () => {

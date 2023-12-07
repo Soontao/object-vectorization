@@ -58,7 +58,7 @@ describe("FixedListEncoder", () => {
   });
 
   it("should handle decoding with NaN list", () => {
-    const nanEncoded = new Array(8).fill(NaN);
+    const nanEncoded = nullVector(8);
 
     const decoded = encoder.decode(nanEncoded);
 
@@ -73,6 +73,15 @@ describe("FixedListEncoder", () => {
     const decoded = encoder.decode(encoded);
 
     // Check if the decoded list is empty
+    expect(decoded).toHaveLength(0);
+  });
+
+  it("should handle encoding and decoding an empty input list", () => {
+    const emptyInputList = [null, undefined, {}];
+
+    const encoded = encoder.encode(emptyInputList);
+    const decoded = encoder.decode(encoded);
+
     expect(decoded).toHaveLength(0);
   });
 

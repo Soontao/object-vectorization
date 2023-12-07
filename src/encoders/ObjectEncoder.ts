@@ -3,6 +3,7 @@ import { inspect } from "util";
 import Encoder from "./Encoder.js";
 import ObjectMetadata, { mapEncoder, metadataValidator } from "./Metadata.js";
 import { Vector } from "./type.js";
+import { isNull, nullVector } from "./util.js";
 
 export function sort(meta: ObjectMetadata): ObjectMetadata {
   if (meta._sorted) {
@@ -80,8 +81,12 @@ export class ObjectEncoder<T> implements Encoder<T> {
   }
 
   encode(value: T): Vector {
-    if (typeof value !== "object" || value === null) {
+    if (typeof value !== "object") {
       throw new Error("Invalid value. Expected an object.");
+    }
+
+    if (isNull(value)) {
+      return nullVector(this.length);
     }
 
     const encodedVector: number[] = [];
