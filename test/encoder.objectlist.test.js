@@ -86,10 +86,14 @@ describe("FixedListEncoder", () => {
   });
 
   it("should encode and decode correctly with nested object in list", () => {
+    /**
+     * @type {import("../src/index.js").ObjectMetadata}
+     */
     const meta = {
       properties: [
         { name: "name", type: "category", values: ["Alice", "Bob", "Charlie"] },
         { name: "age", type: "numeric" },
+        { name: "keywords", type: "multi_category", values: ["man", "woman", "z-gen", "old-school"] },
         {
           name: "details",
           type: "object",
@@ -108,9 +112,24 @@ describe("FixedListEncoder", () => {
     const encoder = new FixedListEncoder(meta, positionDict);
 
     const testData = [
-      { name: "Alice", age: 25, details: { gender: "Female", city: "New York" } },
-      { name: "Bob", age: 30, details: { gender: "Male", city: "London" } },
-      { name: "Charlie", age: 35, details: { gender: "Female", city: "Paris" } },
+      {
+        name: "Alice",
+        age: 25,
+        details: { gender: "Female", city: "New York" },
+        keywords: []
+      },
+      {
+        name: "Bob",
+        age: 30,
+        details: { gender: "Male", city: "London" },
+        keywords: ["man"]
+      },
+      {
+        name: "Charlie",
+        age: 35,
+        details: { gender: "Female", city: "Paris" },
+        keywords: ["z-gen", "woman"]
+      },
     ];
     const encoded = encoder.encode(testData);
     const features = encoder.features();
