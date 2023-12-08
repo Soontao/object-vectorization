@@ -1,3 +1,4 @@
+import { DecodeNotSupportedError } from "../src/encoders/Errors.js";
 import { StatisticListEncoder } from "../src/encoders/StatisticListEncoder.js";
 
 describe("StatisticListEncoder Test Suite", () => {
@@ -80,8 +81,7 @@ describe("StatisticListEncoder", () => {
   });
 
   test("decode method should throw an error", () => {
-    expect(() => statisticListEncoder.decode([])).toThrow("Method not supported.");
-    // Add more specific assertions based on your use case
+    expect(() => statisticListEncoder.decode([])).toThrow(DecodeNotSupportedError);
   });
 
 });

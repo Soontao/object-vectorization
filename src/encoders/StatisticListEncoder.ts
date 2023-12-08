@@ -1,4 +1,5 @@
 import Encoder from "./Encoder.js";
+import { DecodeNotSupportedError } from "./Errors.js";
 import ObjectMetadata from "./Metadata.js";
 import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder.js";
 import { Vector } from "./type.js";
@@ -76,7 +77,7 @@ export class StatisticListEncoder<T> implements Encoder<Array<T>> {
   }
 
   decode(_vec: Vector): T[] {
-    throw new Error("Method not supported.");
+    throw new DecodeNotSupportedError();
   }
 
   get length(): number {

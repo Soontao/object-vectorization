@@ -59,7 +59,7 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
 
   decode(vec: Vector): T[] {
     if (vec.length !== this.length) {
-      throw new Error("FixedListEncoder: Invalid vector length");
+      throw new TypeError("FixedListEncoder: Invalid vector length");
     }
     if (isNullVector(vec)) {
       return [];

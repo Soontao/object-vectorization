@@ -1,6 +1,11 @@
-import { metadataValidator } from '../src/encoders/Metadata.js';
+import { mapEncoder, metadataValidator } from '../src/encoders/Metadata.js';
+import EnglishSentimentEncoder from '../src/encoders/SentimentEncoder.js';
 
 describe('ObjectMetadata Test Suite', () => {
+
+  it('should throw error when use unknown type', () => {
+    expect(() => mapEncoder({ name: "ccc", type: "wwww" })).toThrowErrorMatchingSnapshot()
+  });
 
   it('Valid ObjectMetadata', () => {
     const validObjectMetadata = {
@@ -25,6 +30,12 @@ describe('ObjectMetadata Test Suite', () => {
     };
 
     expect(metadataValidator(invalidObjectMetadata)).toBe(false);
+  });
+
+  it('returns an EnglishSentimentEncoder for type "en_sentiment"', () => {
+    const property = { type: 'en_sentiment' };
+    const encoder = mapEncoder(property);
+    expect(encoder).toBeInstanceOf(EnglishSentimentEncoder);
   });
 
 });

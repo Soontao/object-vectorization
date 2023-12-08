@@ -2,7 +2,7 @@
  * @type {import('ts-jest').JestConfigWithTsJest}
  */
 export default {
-  preset: 'ts-jest/presets/default-esm',
+  preset: 'ts-jest/presets/default-esm-legacy',
   testTimeout: 30 * 1000,
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',

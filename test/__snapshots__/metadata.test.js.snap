@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ObjectMetadata Test Suite should throw error when use unknown type 1`] = `"cannot handle type wwww for ccc"`;

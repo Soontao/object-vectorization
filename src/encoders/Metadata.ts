@@ -10,6 +10,7 @@ import MultiCategoryEncoder from "./MultiCategoryEncoder.js";
 import MurmurEncoder from "./MurmurEncoder.js";
 import NumericEncoder from "./NumericEncoder.js";
 import ObjectEncoder from "./ObjectEncoder.js";
+import EnglishSentimentEncoder from "./SentimentEncoder.js";
 import StatisticListEncoder from "./StatisticListEncoder.js";
 import UUIDEncoder from "./UUIDEncoder.js";
 
@@ -25,6 +26,7 @@ export interface Property {
     | "category"
     | "murmur_hash"
     | "multi_category"
+    | "en_sentiment"
     | "bool"
     | "uuid"
     | "numeric"
@@ -80,6 +82,7 @@ const metadataSchema: Schema = {
             "category",
             "murmur_hash",
             "multi_category",
+            "en_sentiment",
             "bool",
             "uuid",
             "numeric",
@@ -171,6 +174,8 @@ export function mapEncoder(property: Property) {
       return new StatisticListEncoder(property.meta!);
     case "murmur_hash":
       return new MurmurEncoder(property.hash_seed);
+    case "en_sentiment":
+      return new EnglishSentimentEncoder();
     default:
       throw new TypeError(`cannot handle type ${property.type} for ${property.name}`);
   }
