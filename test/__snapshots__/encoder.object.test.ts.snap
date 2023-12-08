@@ -4,6 +4,10 @@ exports[`ObjectEncoder Test Suite Throws error for invalid ObjectMetadata 1`] = 
 
 exports[`ObjectEncoder Test Suite should encode and decode an object correctly 1`] = `
 [
+  4118122758,
+  3075299459,
+  1140443308,
+  4235811317,
   1,
   0,
   0,
@@ -27,6 +31,7 @@ exports[`ObjectEncoder Test Suite should encode and decode an object correctly 1
 
 exports[`ObjectEncoder Test Suite should encode and decode an object correctly 2`] = `
 {
+  "id": "069175f5-8358-4db7-acc8-f943f55979fc",
   "prop_bool": true,
   "prop_category": "B",
   "prop_datetime": "2023-01-01T12:30:00.000Z",

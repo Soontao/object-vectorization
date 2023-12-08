@@ -101,6 +101,7 @@ describe("ObjectEncoder Test Suite", () => {
     // Sample metadata for testing
     const metadata: any = {
       properties: [
+        { name: "id", type: "uuid" },
         { name: "prop_bool", type: "bool" },
         { name: "prop_category", type: "category", values: ["A", "B", "C"] },
         { name: "prop_datetime", type: "datetime" },
@@ -120,6 +121,7 @@ describe("ObjectEncoder Test Suite", () => {
 
     // Sample object data for testing
     const testData = {
+      id: "069175f5-8358-4db7-acc8-f943f55979fc",
       prop_bool: true,
       prop_category: "B",
       prop_datetime: "2023-01-01T12:30:00.000Z",
@@ -133,7 +135,7 @@ describe("ObjectEncoder Test Suite", () => {
     // Create an instance of ObjectEncoder
     const objectEncoder = new ObjectEncoder(metadata);
 
-    expect(objectEncoder.length).toBe(18);
+    expect(objectEncoder.length).toBe(22);
 
     // Encode the test data
     const encodedVector = objectEncoder.encode(testData);
