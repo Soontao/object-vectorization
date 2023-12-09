@@ -9,6 +9,7 @@ describe("MultiCategoryEncoder Test Suite", () => {
     expect(e.encode(["A", "B"])).toEqual([1, 1, 0]);
     expect(e.encode(["A", "B", "C"])).toEqual([1, 1, 1]);
     expect(e.encode([])).toEqual([0, 0, 0]);
+    expect(e.encode([4312, 432, 432, 'ww', 'random'])).toEqual([0, 0, 0]);
     expect(e.encode(null)).toEqual(nullVector(e.length));
   });
 
