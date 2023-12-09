@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Utils Test Suite creates projector values 1`] = `
+"1	0	0
+0	1	0"
+`;
+
+exports[`Utils Test Suite creates projector values 2`] = `
+"property1
+value1
+value2"
+`;
