@@ -9,6 +9,8 @@ export function match<T = any>(obj: T, part: any): part is Partial<T> {
 }
 
 /**
+ * fixed order list encoder
+ *
  * @human (+)
  * @ai (-)
  */
