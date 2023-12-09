@@ -4,6 +4,7 @@ import { RandomForestClassifier } from "ml-random-forest";
 import ObjectMetadata from "../src/encoders/Metadata.js";
 import ObjectEncoder from "../src/encoders/ObjectEncoder.js";
 import { Vector } from "../src/encoders/type.js";
+import { generateRandomData as generate } from "./test.utils.js";
 
 const mobilePhoneMeta: ObjectMetadata = {
   properties: [
@@ -77,44 +78,6 @@ const mobilePhoneMeta: ObjectMetadata = {
       },
     },
   ],
-};
-
-const generate = (meta: ObjectMetadata) => {
-  const obj = {};
-
-  for (const property of meta.properties) {
-    switch (property.type) {
-      case "category":
-        obj[property.name] = faker.helpers.arrayElement(property.values);
-        break;
-      case "datetime":
-        obj[property.name] = faker.date.recent();
-        break;
-      case "numeric":
-        obj[property.name] = faker.number.float({ min: 10, max: 100000 });
-        break;
-      case "bool":
-        obj[property.name] = faker.datatype.boolean();
-        break;
-      case "fixed_object_list":
-        obj[property.name] = property.position_dict.map((p) => ({ ...generate(property.meta), ...p }));
-        break;
-      case "statistic_object_list":
-        obj[property.name] = new Array(faker.number.int({ min: 1, max: 10 }))
-          .fill({})
-          .map(() => generate(property.meta));
-        break;
-      case "object":
-        obj[property.name] = generate(property.meta);
-        break;
-      default:
-        // Use faker for other types
-        obj[property.name] = faker[property.type.toLowerCase()]();
-        break;
-    }
-  }
-
-  return obj;
 };
 
 function generateLabels(num: number, labelSize = 10): Array<string> {
