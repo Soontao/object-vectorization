@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import { ObjectEncoder, ObjectMetadata } from "../index.js";
 
 export function flattenObject(obj: any, parentKey?: string): Array<{ key: string; val: string }> {
@@ -21,10 +22,24 @@ export function flattenObject(obj: any, parentKey?: string): Array<{ key: string
   return result;
 }
 
-export function createProjectorValues(meta: ObjectMetadata, items: Array<any>) {
+export function createProjectorValues(
+  meta: ObjectMetadata,
+  items: Array<any>,
+  importantFeaturesIndexes?: Array<number>,
+) {
   const e = new ObjectEncoder(meta);
+
   const vectors = items.map((i) => e.encode(i));
-  const tsv = vectors.map((v) => v.map(String).join("\t")).join("\n");
+  const tsv = vectors
+    .map((v) =>
+      importantFeaturesIndexes == undefined
+        ? v.map(String).join("\t")
+        : importantFeaturesIndexes
+            .map((idx) => v[idx])
+            .map(String)
+            .join("\t"),
+    )
+    .join("\n");
   const metaHeaders = flattenObject(items[0]).map((v) => v.key);
   const metadata = items.map((i) => flattenObject(i));
   const metaTsv = [
