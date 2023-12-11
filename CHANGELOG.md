@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/Soontao/object-vectorization/compare/v0.1.7...v0.1.8) (2023-12-11)
+
+
+### Bug Fixes
+
+* statistic list ([700c6a9](https://github.com/Soontao/object-vectorization/commit/700c6a94570430f8997f8dd5cd92b3e07cf4ccd9))
+
 ### [0.1.7](https://github.com/Soontao/object-vectorization/compare/v0.1.6...v0.1.7) (2023-12-11)
 
 
