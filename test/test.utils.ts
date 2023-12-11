@@ -19,7 +19,6 @@ const generateRandomProperty = (depth: number): Property => {
     "category",
     "murmur_hash",
     "multi_category",
-    "en_sentiment",
     "bool",
     "uuid",
     "numeric",
@@ -92,9 +91,6 @@ export function generateRandomData(meta: ObjectMetadata) {
         break;
       case "uuid":
         obj[property.name] = faker.string.uuid();
-        break;
-      case "en_sentiment":
-        obj[property] = faker.number.float({ min: -10, max: 10 });
         break;
       case "murmur_hash":
         obj[property] = faker.number.int({ min: 0, max: 2 ** 16 });

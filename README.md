@@ -92,7 +92,6 @@ In the `ObjectMetadata`, each property must have a specified `type` to define it
 - **numeric**: Represents numeric values.
 - **murmur_hash**: Represents string identifiers.
 - **category**: Denotes categorical values with predefined options.
-- **en_sentiment**: Text sentiment, **English** only.
 - **datetime**: Signifies date and time values.
 - **bool**: Represents Boolean values.
 - **uuid**: Represents universally unique identifier (UUID) values.
