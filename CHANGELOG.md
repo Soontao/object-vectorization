@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/Soontao/object-vectorization/compare/v0.1.8...v0.1.9) (2023-12-11)
+
+
+### Bug Fixes
+
+* null value for murmur ([3c12944](https://github.com/Soontao/object-vectorization/commit/3c12944d37108cc1abe6dbafe45df20a25580d8c))
+
 ### [0.1.8](https://github.com/Soontao/object-vectorization/compare/v0.1.7...v0.1.8) (2023-12-11)
 
 
