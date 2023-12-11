@@ -20,7 +20,7 @@ export class MurmurEncoder implements Encoder<string> {
     if (isNull(value)) {
       return nullVector(this.length);
     }
-    return [murmurhash3(value, this.#seed)];
+    return [murmurhash3(String(value), this.#seed)];
   }
 
   decode(_vec: Vector): string {
