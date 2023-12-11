@@ -2,7 +2,6 @@ import { DecodeNotSupportedError } from "../src/encoders/Errors.js";
 import { StatisticListEncoder } from "../src/encoders/StatisticListEncoder.js";
 
 describe("StatisticListEncoder Test Suite", () => {
-
   const meta = {
     properties: [
       { name: "age", type: "numeric" },
@@ -20,10 +19,10 @@ describe("StatisticListEncoder Test Suite", () => {
 
   it("should encode correctly", () => {
     const encoded = encoder.encode(testData);
-    const features = encoder.features("list_a")
+    const features = encoder.features("list_a");
     // Check if the encoded vector has the correct length
     expect(encoded.length).toBe(12);
-    expect(features).toMatchSnapshot()
+    expect(features).toMatchSnapshot();
   });
 
   it("should return features correctly", () => {
@@ -33,7 +32,11 @@ describe("StatisticListEncoder Test Suite", () => {
     expect(features.length).toBe(12);
   });
 
-
+  it("should support empty array", () => {
+    const r = encoder.encode([]);
+    expect(r).toMatchSnapshot();
+    expect(encoder.decode(r)).toBeNull();
+  });
 });
 
 // >> AI Test Cases
@@ -81,9 +84,8 @@ describe("StatisticListEncoder", () => {
   });
 
   test("decode method should throw an error", () => {
-    expect(() => statisticListEncoder.decode([])).toThrow(DecodeNotSupportedError);
+    expect(() => statisticListEncoder.decode([1])).toThrow(DecodeNotSupportedError);
   });
-
 });
 
 describe("Integration with Statistics Metadata", () => {
@@ -101,5 +103,4 @@ describe("Integration with Statistics Metadata", () => {
     expect(encodedVector).toBeInstanceOf(Array);
     expect(encodedVector.length).toBe(statisticListEncoderWithStats.length);
   });
-
 });

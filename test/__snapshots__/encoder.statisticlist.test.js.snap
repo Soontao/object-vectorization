@@ -16,3 +16,20 @@ exports[`StatisticListEncoder Test Suite should encode correctly 1`] = `
   "list_a_height_sum",
 ]
 `;
+
+exports[`StatisticListEncoder Test Suite should support empty array 1`] = `
+[
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+  -65536,
+]
+`;

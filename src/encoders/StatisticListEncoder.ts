@@ -3,6 +3,7 @@ import { DecodeNotSupportedError } from "./Errors.js";
 import ObjectMetadata from "./Metadata.js";
 import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder.js";
 import { Vector } from "./type.js";
+import { isNull, isNullVector, nullVector } from "./util.js";
 
 type StatisticFunc = (values: Array<number>) => number;
 
@@ -63,6 +64,9 @@ export class StatisticListEncoder<T> implements Encoder<Array<T>> {
   }
 
   encode(value: T[]): Vector {
+    if (isNull(value) || value?.length == 0) {
+      return nullVector(this.length);
+    }
     const vectors = value.map((v) => this.#encoder.encode(v));
     const statisticVector = new Array(this.#encoder.length * statisticColsNum);
     for (const [funcIdx, name] of statisticFuncNames.entries()) {
@@ -77,6 +81,9 @@ export class StatisticListEncoder<T> implements Encoder<Array<T>> {
   }
 
   decode(_vec: Vector): T[] {
+    if (isNullVector(_vec)) {
+      return null as any;
+    }
     throw new DecodeNotSupportedError();
   }
 
