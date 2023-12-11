@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/Soontao/object-vectorization/compare/v0.1.6...v0.1.7) (2023-12-11)
+
+
+### Features
+
+* fuzzy test ([d000b8c](https://github.com/Soontao/object-vectorization/commit/d000b8ca93f5fdecad3fcb7f4e3323ec51cb10d3))
+
 ### [0.1.6](https://github.com/Soontao/object-vectorization/compare/v0.1.5...v0.1.6) (2023-12-09)
 
 
