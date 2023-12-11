@@ -4,6 +4,8 @@ describe("MurmurEncoder Test Suite", () => {
   it("should support int test", () => {
     expect(new MurmurEncoder(42).encode("Hello Vector!")).toMatchSnapshot();
     expect(new MurmurEncoder(500).encode("Hello Vector!")).toMatchSnapshot();
+    expect(new MurmurEncoder().encode(null)).toMatchSnapshot();
+    expect(new MurmurEncoder().encode(undefined)).toMatchSnapshot();
   });
   it("should have a length of 1", () => {
     const encoder = new MurmurEncoder();

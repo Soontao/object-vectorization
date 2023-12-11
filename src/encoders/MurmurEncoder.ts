@@ -1,6 +1,7 @@
 import { murmurhash3 } from "../utils/MurmurHash.js";
 import Encoder from "./Encoder.js";
 import { Vector } from "./type.js";
+import { isNull, isNullVector, nullVector } from "./util.js";
 
 /**
  * in most case, use this for semantic code
@@ -16,10 +17,16 @@ export class MurmurEncoder implements Encoder<string> {
   }
 
   encode(value: string): Vector {
+    if (isNull(value)) {
+      return nullVector(this.length);
+    }
     return [murmurhash3(value, this.#seed)];
   }
 
   decode(_vec: Vector): string {
+    if (isNullVector(_vec)) {
+      return null as any;
+    }
     throw new Error("Decoding is not implemented for MurmurEncoder.");
   }
 

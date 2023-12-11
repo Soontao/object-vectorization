@@ -11,3 +11,15 @@ exports[`MurmurEncoder Test Suite should support int test 2`] = `
   2026014530,
 ]
 `;
+
+exports[`MurmurEncoder Test Suite should support int test 3`] = `
+[
+  -65536,
+]
+`;
+
+exports[`MurmurEncoder Test Suite should support int test 4`] = `
+[
+  -65536,
+]
+`;
