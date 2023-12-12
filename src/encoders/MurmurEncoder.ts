@@ -1,4 +1,4 @@
-import { murmurhash3 } from "../utils/MurmurHash.js";
+import { murmurhash3 } from "../utils/murmurhash3.js";
 import Encoder from "./Encoder.js";
 import { Vector } from "./type.js";
 import { isNull, isNullVector, nullVector } from "./util.js";

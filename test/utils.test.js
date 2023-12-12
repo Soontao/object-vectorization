@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { murmurhash3 } from "../src/utils/MurmurHash.js";
 import { createProjectorValues, flattenObject } from "../src/utils/Projector.js";
+import { murmurhash3 } from "../src/utils/murmurhash3.js";
 
 describe("Utils Test Suite", () => {
   it("should return the correct hash value for a given key and seed", () => {
