@@ -18,6 +18,7 @@ describe("Normalization Test Suite", () => {
         expect(value).toBeLessThanOrEqual(1);
       });
     });
+    expect(normalizedVectors[0].__original).toEqual(vectors[0]);
     expect(normalizedVectors).toMatchSnapshot();
   });
 

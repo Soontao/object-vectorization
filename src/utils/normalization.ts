@@ -34,14 +34,16 @@ export function normalization(vectors: Array<Vector>): Array<Vector> {
   }
 
   // Apply Min-Max Scaling to each vector
-  const normalizedVectors = vectors.map((vector) =>
-    vector.map((value, index) => {
+  const normalizedVectors = vectors.map((vector) => {
+    const newVec = vector.map((value, index) => {
       if (minValues[index] == maxValues[index]) {
         return minValues[index];
       }
       return (value - minValues[index]) / (maxValues[index] - minValues[index]);
-    }),
-  );
+    });
+    Object.defineProperty(newVec, "__original", { value: vector, enumerable: false });
+    return newVec;
+  });
 
   return normalizedVectors;
 }
