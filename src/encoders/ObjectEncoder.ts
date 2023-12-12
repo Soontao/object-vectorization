@@ -38,7 +38,7 @@ export function fillEncoders(meta: ObjectMetadata) {
     if (property.meta) {
       sortMetaAndFillEncoders(property.meta!); // inner meta create encoders firstly
     }
-    property._encoder = mapEncoder(property);
+    Object.defineProperty(property, "_encoder", { value: mapEncoder(property), enumerable: false });
   }
   calculateObjectVecLength(meta);
   Object.defineProperty(meta, "_encoder_filled", { value: true, enumerable: false });
