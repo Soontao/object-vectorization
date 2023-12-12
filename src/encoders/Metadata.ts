@@ -176,6 +176,10 @@ export function mapEncoder(property: Property) {
   }
 }
 
+export function createObjectMetadata(objectMetadata: ObjectMetadata) {
+  return objectMetadata;
+}
+
 export const metadataValidator = validator(metadataSchema, { includeErrors: true });
 
 export default ObjectMetadata;

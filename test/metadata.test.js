@@ -1,4 +1,4 @@
-import { mapEncoder, metadataValidator } from '../src/encoders/Metadata.js';
+import { createObjectMetadata, mapEncoder, metadataValidator } from '../src/encoders/Metadata.js';
 
 describe('ObjectMetadata Test Suite', () => {
 
@@ -32,5 +32,9 @@ describe('ObjectMetadata Test Suite', () => {
   });
 
 
+  it('should createObjectMetadata', () => {
+    const obj = { properties: [] }
+    expect(createObjectMetadata(obj)).toBe(obj)
+  });
 
 });

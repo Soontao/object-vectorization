@@ -61,3 +61,5 @@ export function murmurhash3(plain: string, seed: number = 42): number {
 
   return h1 >>> 0;
 }
+
+export default murmurhash3;

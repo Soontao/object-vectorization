@@ -1,6 +1,20 @@
 import { Vector } from "./type.js";
 
-const NULL_VEC_VALUE = -(2 ** 16);
+export const NULL_VEC_VALUE = -(2 ** 16);
+
+export function fillMissingValues(vec: Vector) {
+  if ((vec as any)?.["__missingValuesFilled"] == true) {
+    return vec;
+  }
+  const newVec = vec.map((d) => {
+    if (isNaN(d) || d == Infinity || d == -Infinity || d == null || d == undefined || typeof d !== "number") {
+      return NULL_VEC_VALUE;
+    }
+    return d;
+  });
+  Object.defineProperty(newVec, "__missingValuesFilled", { value: true, enumerable: false });
+  return newVec;
+}
 
 /**
  * check wether the given js value is `null`
@@ -9,7 +23,11 @@ const NULL_VEC_VALUE = -(2 ** 16);
  * @returns
  */
 export function isNull(value: any): boolean {
-  return value === null || value === undefined || (typeof value == "number" && isNaN(value));
+  return (
+    value === null ||
+    value === undefined ||
+    (typeof value == "number" && (isNaN(value) || value == Infinity || value == -Infinity))
+  );
 }
 
 /**

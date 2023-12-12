@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Normalization Test Suite should handle vectors with all zero values 1`] = `
+[
+  [
+    0,
+    0,
+    0,
+  ],
+  [
+    0,
+    0,
+    0,
+  ],
+  [
+    0,
+    0,
+    0,
+  ],
+]
+`;
+
+exports[`Normalization Test Suite should handle vectors with null values 1`] = `
+[
+  [
+    0.9999084570434676,
+    0,
+    0.9999542278233804,
+  ],
+  [
+    0,
+    0.5,
+    1,
+  ],
+  [
+    1,
+    1,
+    0,
+  ],
+]
+`;
+
+exports[`Normalization Test Suite should normalize vectors using Min-Max Scaling 1`] = `
+[
+  [
+    0,
+    0,
+    0,
+  ],
+  [
+    0.5,
+    0.5,
+    0.5,
+  ],
+  [
+    1,
+    1,
+    1,
+  ],
+]
+`;
