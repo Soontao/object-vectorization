@@ -11,16 +11,16 @@ export function sort(meta: ObjectMetadata): ObjectMetadata {
   }
   const newMeta = { ...meta };
   newMeta.properties = meta.properties
-    .map((v) => {
-      if (v.type == "object") {
-        const newV = { ...v };
-        newV.meta = sort(v.meta as any);
+    .map((property) => {
+      if (property.type == "object") {
+        const newV = { ...property };
+        newV.meta = sort(property.meta as any);
         return newV;
       }
-      if (v.type === "category" && v.values) {
-        v.values = v.values!.sort();
+      if (property.type === "category" && property.values) {
+        property.values = property.values!.sort();
       }
-      return v;
+      return property;
     })
     .sort((p1, p2) => (p1.name > p2.name ? 1 : -1));
   Object.defineProperty(newMeta, "_sorted", { value: true, enumerable: false });
