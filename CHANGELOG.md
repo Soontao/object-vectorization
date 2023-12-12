@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/Soontao/object-vectorization/compare/v0.1.9...v0.1.10) (2023-12-12)
+
+
+### Features
+
+* vec normalization ([23a996f](https://github.com/Soontao/object-vectorization/commit/23a996ffefd266527250a35e6506169a1774213c))
+
 ### [0.1.9](https://github.com/Soontao/object-vectorization/compare/v0.1.8...v0.1.9) (2023-12-11)
 
 
