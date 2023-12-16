@@ -42,7 +42,7 @@ export class CategoryEncoder<T = any> extends AbstractEncoder<T> {
       const index = this._valueIndex.get(singleValue);
       if (index !== undefined) vec[index] = POSITIVE_VALUE;
     }
-    return vec;
+    return this.withFeatures(vec);
   }
 
   decode(vec: Array<number>) {

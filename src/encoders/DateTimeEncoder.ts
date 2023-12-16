@@ -35,7 +35,7 @@ export class DateTimeEncoder extends AbstractEncoder<string> {
       dateTime.second,
     ];
 
-    return encodedVector;
+    return this.withFeatures(encodedVector);
   }
 
   decode(vec: Vector): string {

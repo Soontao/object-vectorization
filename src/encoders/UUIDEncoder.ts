@@ -30,7 +30,7 @@ export class UUIDEncoder extends AbstractEncoder<string> {
       return nullVector(this.length);
     }
     value = value.replaceAll("-", "");
-    return this.#hexToUint32Array(value);
+    return this.withFeatures(this.#hexToUint32Array(value));
   }
 
   decode(vec: number[]): string {

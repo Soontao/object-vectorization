@@ -1,5 +1,6 @@
 import { Vector } from "../encoders/type.js";
 import { fillMissingValues, isNull } from "../encoders/util.js";
+import defineHiddenProperty from "./defineHiddenProperty.js";
 
 /**
  * min-max value normalization
@@ -41,7 +42,7 @@ export function normalization(vectors: Array<Vector>): Array<Vector> {
       }
       return (value - minValues[index]) / (maxValues[index] - minValues[index]);
     });
-    Object.defineProperty(newVec, "__original", { value: vector, enumerable: false });
+    defineHiddenProperty(newVec, "__original", vector);
     return newVec;
   });
 

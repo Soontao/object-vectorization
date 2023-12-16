@@ -101,7 +101,7 @@ export class ObjectEncoder<T> extends AbstractEncoder<T> {
       encodedVector.push(...property._encoder!.encode((value as any)[property.name]));
     }
 
-    return encodedVector;
+    return this.withFeatures(encodedVector);
   }
 
   decode(vec: Vector): T {

@@ -74,7 +74,7 @@ export class StatisticListEncoder<T> extends AbstractEncoder<Array<T>> {
         statisticVector[aggValueLocate] = aggValue;
       }
     }
-    return statisticVector;
+    return this.withFeatures(statisticVector);
   }
 
   decode(_vec: Vector): T[] {

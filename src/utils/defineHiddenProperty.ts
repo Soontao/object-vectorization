@@ -3,6 +3,7 @@ export function defineHiddenProperty(obj: any, property: string, value: any, for
     return obj;
   }
   Object.defineProperty(obj, property, { enumerable: false, value });
+  return obj;
 }
 
 export default defineHiddenProperty;

@@ -61,7 +61,7 @@ export class FixedListEncoder<T = any> extends AbstractEncoder<Array<T>> {
       }
     }
 
-    return encodedVector;
+    return this.withFeatures(encodedVector);
   }
 
   decode(vec: Vector): T[] {

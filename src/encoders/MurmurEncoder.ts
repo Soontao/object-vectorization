@@ -22,7 +22,7 @@ export class MurmurEncoder extends AbstractEncoder<string> {
     if (isNull(value)) {
       return nullVector(this.length);
     }
-    return [murmurhash3(String(value), this.#seed)];
+    return this.withFeatures([murmurhash3(String(value), this.#seed)]);
   }
 
   decode(_vec: Vector): string {

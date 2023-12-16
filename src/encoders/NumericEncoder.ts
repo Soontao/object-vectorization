@@ -15,7 +15,7 @@ export class NumericEncoder extends AbstractEncoder<number> {
       return nullVector(this.length);
     }
 
-    return [value];
+    return this.withFeatures([value]);
   }
 
   decode(vec: Vector): number {

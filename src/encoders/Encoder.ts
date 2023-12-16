@@ -1,3 +1,4 @@
+import defineHiddenProperty from "../utils/defineHiddenProperty.js";
 import ObjectMetadata, { Property } from "./Metadata.js";
 import { Vector } from "./type.js";
 
@@ -37,6 +38,10 @@ export abstract class AbstractEncoder<T> implements Encoder<T> {
     } else {
       this._property = property;
     }
+  }
+
+  protected withFeatures(vec: Vector) {
+    return defineHiddenProperty(vec, "features", this.features(), true);
   }
 
   abstract encode(value: T): Vector;
