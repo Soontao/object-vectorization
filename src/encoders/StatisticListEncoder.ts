@@ -1,3 +1,4 @@
+import { variance } from "../utils/variance.js";
 import Encoder from "./Encoder.js";
 import { DecodeNotSupportedError } from "./Errors.js";
 import ObjectMetadata from "./Metadata.js";
@@ -6,12 +7,6 @@ import { Vector } from "./type.js";
 import { isNull, isNullVector, nullVector } from "./util.js";
 
 type StatisticFunc = (values: Array<number>) => number;
-
-const variance: StatisticFunc = (values) => {
-  const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
-  const squaredDifferencesSum = values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0);
-  return squaredDifferencesSum / values.length;
-};
 
 const diff: StatisticFunc = (values) => {
   const max = Math.max(...values);
