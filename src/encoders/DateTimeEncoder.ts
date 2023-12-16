@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { Encoder } from "./Encoder.js";
+import { AbstractEncoder } from "./Encoder.js";
 import { Vector } from "./type.js";
 import { isNull, nullVector } from "./util.js";
 
@@ -9,9 +9,9 @@ const FEATURES = ["year", "month", "day", "isoWeek", "hour", "minute", "second"]
  * @ai
  * @human
  */
-export class DateTimeEncoder implements Encoder<string> {
-  features(name: string): string[] {
-    return FEATURES.map((v) => `${name}_${v}`);
+export class DateTimeEncoder extends AbstractEncoder<string> {
+  features(): string[] {
+    return FEATURES.map((v) => `${this._property.name}_${v}`);
   }
 
   encode(value: string | Date): Vector {

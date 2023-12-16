@@ -1,3 +1,4 @@
+import defineHiddenProperty from "../utils/defineHiddenProperty.js";
 import { Vector } from "./type.js";
 
 export const NULL_VEC_VALUE = -(2 ** 16);
@@ -12,7 +13,7 @@ export function fillMissingValues(vec: Vector) {
     }
     return d;
   });
-  Object.defineProperty(newVec, "__missingValuesFilled", { value: true, enumerable: false });
+  defineHiddenProperty(newVec, "__missingValuesFilled", true);
   return newVec;
 }
 
@@ -35,7 +36,7 @@ export function isNull(value: any): boolean {
  * @param length
  * @returns
  */
-export function nullVector(length: number): Vector {
+export function nullVector(length: number): Array<number> {
   return new Array(length).fill(NULL_VEC_VALUE);
 }
 
@@ -47,4 +48,9 @@ export function nullVector(length: number): Vector {
  */
 export function isNullVector(vec: Vector): boolean {
   return vec.every((v) => v === NULL_VEC_VALUE);
+}
+
+export function newVector(values: Array<number>, features: Array<string>): Vector {
+  defineHiddenProperty(values, "__features", features);
+  return values as any;
 }

@@ -1,7 +1,7 @@
-import { Encoder } from "./Encoder.js";
+import { AbstractEncoder } from "./Encoder.js";
 import { isNull, nullVector } from "./util.js";
 
-export class UUIDEncoder implements Encoder<string> {
+export class UUIDEncoder extends AbstractEncoder<string> {
   /**
    *
    * @param hexString
@@ -19,8 +19,10 @@ export class UUIDEncoder implements Encoder<string> {
     return Buffer.from(new Uint32Array(arr).buffer).toString("hex");
   }
 
-  features(name: string): string[] {
-    return [`${name}_1`, `${name}_2`, `${name}_3`, `${name}_4`];
+  features(): string[] {
+    return Array(4)
+      .fill(0)
+      .map((_, idx) => `${this._property.name}_${idx + 1}`);
   }
 
   encode(value: string): number[] {

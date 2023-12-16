@@ -1,5 +1,6 @@
 import { murmurhash3 } from "../utils/murmurhash3.js";
-import Encoder from "./Encoder.js";
+import { AbstractEncoder } from "./Encoder.js";
+import { Property } from "./Metadata.js";
 import { Vector } from "./type.js";
 import { isNull, isNullVector, nullVector } from "./util.js";
 
@@ -9,11 +10,12 @@ import { isNull, isNullVector, nullVector } from "./util.js";
  * @ai
  * @human
  */
-export class MurmurEncoder implements Encoder<string> {
+export class MurmurEncoder extends AbstractEncoder<string> {
   #seed: number;
 
-  constructor(seed: number = 42) {
-    this.#seed = seed;
+  constructor(prop: Property) {
+    super(prop);
+    this.#seed = prop.hash_seed!;
   }
 
   encode(value: string): Vector {
@@ -30,8 +32,8 @@ export class MurmurEncoder implements Encoder<string> {
     throw new Error("Decoding is not implemented for MurmurEncoder.");
   }
 
-  features(name: string): Array<string> {
-    return [name];
+  features(): Array<string> {
+    return [this._property.name];
   }
 
   get length(): number {

@@ -17,7 +17,7 @@ describe("FixedListEncoder", () => {
     { name: "Bob", age: 30 },
   ];
 
-  const encoder = new FixedListEncoder(meta, positionDict);
+  const encoder = new FixedListEncoder({ meta, position_dict: positionDict });
 
   const testData = [
     { name: "Alice", age: 25 },
@@ -34,7 +34,7 @@ describe("FixedListEncoder", () => {
   });
 
   it("should encode with NaN for missing items", () => {
-    const objEncoder = new ObjectEncoder(meta);
+    const objEncoder = new ObjectEncoder({ meta });
     const testDataSubset = [
       { name: "Alice", age: 25 },
       { name: "Charlie", age: 35 },
@@ -109,7 +109,7 @@ describe("FixedListEncoder", () => {
 
     const positionDict = [{ name: "Alice" }, { name: "Bob" }];
 
-    const encoder = new FixedListEncoder(meta, positionDict);
+    const encoder = new FixedListEncoder({ meta, position_dict: positionDict });
 
     const testData = [
       {

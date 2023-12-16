@@ -5,7 +5,7 @@ import { nullVector } from "../src/encoders/util.js";
 describe("DateTimeEncoder Test Suite", () => {
   it("should encode and decode date-time values correctly", () => {
     // Arrange
-    const encoder = new DateTimeEncoder();
+    const encoder = new DateTimeEncoder({});
 
     // Act
     const encodedVector = encoder.encode("2023-12-01T12:34:56.789Z");
@@ -21,7 +21,7 @@ describe("DateTimeEncoder Test Suite", () => {
 
   it("should handle invalid date format during encoding", () => {
     // Arrange
-    const encoder = new DateTimeEncoder();
+    const encoder = new DateTimeEncoder({});
 
     // Act
     const encodedVector = encoder.encode("invalid-date");
@@ -33,7 +33,7 @@ describe("DateTimeEncoder Test Suite", () => {
 
   it("should handle invalid vector length during decoding", () => {
     // Arrange
-    const encoder = new DateTimeEncoder();
+    const encoder = new DateTimeEncoder({});
     const invalidVector = [1, 2, 3, 4, 5, 6]; // Invalid length
 
     // Act & Assert
@@ -42,7 +42,7 @@ describe("DateTimeEncoder Test Suite", () => {
 
   it("should handle all NaN values during decoding", () => {
     // Arrange
-    const encoder = new DateTimeEncoder();
+    const encoder = new DateTimeEncoder({});
     const nanVector = nullVector(encoder.length);
 
     // Act

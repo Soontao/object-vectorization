@@ -1,6 +1,7 @@
-import Encoder from "./Encoder.js";
-import ObjectMetadata from "./Metadata.js";
-import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder.js";
+/* eslint-disable camelcase */
+import { AbstractEncoder } from "./Encoder.js";
+import ObjectMetadata, { Property } from "./Metadata.js";
+import ObjectEncoder, { ListObjectEncoder, sortMetaAndFillEncoders } from "./ObjectEncoder.js";
 import { Vector } from "./type.js";
 import { isNull, isNullVector, nullVector } from "./util.js";
 
@@ -14,7 +15,7 @@ export function match<T = any>(obj: T, part: any): part is Partial<T> {
  * @human (+)
  * @ai (-)
  */
-export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
+export class FixedListEncoder<T = any> extends AbstractEncoder<Array<T>> {
   #meta: ObjectMetadata;
 
   #objectEncoder: ObjectEncoder<T>;
@@ -29,15 +30,19 @@ export class FixedListEncoder<T = any> implements Encoder<Array<T>> {
    * @param fixedLength fixed length of list, means the max items
    * @param positionDict
    */
-  constructor(meta: ObjectMetadata, positionDict: Array<Partial<T>>) {
-    this.#meta = sortMetaAndFillEncoders(meta);
-    this.#objectEncoder = new ObjectEncoder(this.#meta);
-    this.#length = positionDict.length * this.#objectEncoder.length;
-    this.#positionDict = positionDict;
+  constructor(prop: Property) {
+    super(prop);
+    this.#meta = sortMetaAndFillEncoders(this._property.meta!);
+    this.#objectEncoder = new ListObjectEncoder(this._property!);
+    this.#positionDict = prop.position_dict!;
+    this.#length = this.#positionDict.length * this.#objectEncoder.length;
   }
 
-  features(name: string = "root"): string[] {
-    return this.#positionDict.map((_, idx) => this.#objectEncoder.features(`${name}_${idx}`)).flat();
+  features(): string[] {
+    const name = this._property.name ?? "root";
+    return this.#positionDict
+      .map((_, idx) => this.#objectEncoder.features().map((feat) => `${name}_${idx}_${feat}`))
+      .flat();
   }
 
   encode(value: T[]): Vector {

@@ -152,25 +152,25 @@ const metadataSchema: Schema = {
 export function mapEncoder(property: Property) {
   switch (property.type) {
     case "bool":
-      return new BoolEncoder();
+      return new BoolEncoder(property);
     case "category":
-      return new CategoryEncoder(property.values!);
+      return new CategoryEncoder(property);
     case "multi_category":
-      return new MultiCategoryEncoder(property.values!);
+      return new MultiCategoryEncoder(property);
     case "datetime":
-      return new DateTimeEncoder();
+      return new DateTimeEncoder(property);
     case "numeric":
-      return new NumericEncoder();
+      return new NumericEncoder(property);
     case "object":
-      return new ObjectEncoder(property.meta!);
+      return new ObjectEncoder(property);
     case "uuid":
-      return new UUIDEncoder();
+      return new UUIDEncoder(property);
     case "fixed_object_list":
-      return new FixedListEncoder(property.meta!, property.position_dict!);
+      return new FixedListEncoder(property);
     case "statistic_object_list":
-      return new StatisticListEncoder(property.meta!);
+      return new StatisticListEncoder(property);
     case "murmur_hash":
-      return new MurmurEncoder(property.hash_seed);
+      return new MurmurEncoder(property);
     default:
       throw new TypeError(`cannot handle type ${property.type} for ${property.name}`);
   }

@@ -1,13 +1,13 @@
-import { Encoder } from "./Encoder.js";
+import { AbstractEncoder } from "./Encoder.js";
 import { Vector } from "./type.js";
 import { isNull, isNullVector, nullVector } from "./util.js";
 
 /**
  * @ai
  */
-export class NumericEncoder implements Encoder<number> {
-  features(name: string): string[] {
-    return [name];
+export class NumericEncoder extends AbstractEncoder<number> {
+  features(): string[] {
+    return [this._property.name];
   }
 
   encode(value: number): Vector {

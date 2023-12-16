@@ -1,4 +1,5 @@
-import { Encoder } from "./Encoder.js";
+import { AbstractEncoder } from "./Encoder.js";
+import { Property } from "./Metadata.js";
 import { isNull, isNullVector, nullVector } from "./util.js";
 
 const POSITIVE_VALUE = 1;
@@ -7,24 +8,25 @@ const NEGATIVE_VALUE = 0;
 /**
  * @human
  */
-export class CategoryEncoder<T = any> implements Encoder<T> {
+export class CategoryEncoder<T = any> extends AbstractEncoder<T> {
   protected _values: any[];
 
   _valueIndex: Map<T, number>;
 
   _multi: boolean;
 
-  constructor(values: Array<T>, multi = false) {
-    this._values = values;
+  constructor(prop: Property) {
+    super(prop);
+    this._values = prop.values!;
     this._valueIndex = new Map();
-    this._multi = multi;
-    for (const [index, value] of values.entries()) {
+    this._multi = prop.type === "multi_category";
+    for (const [index, value] of this._values.entries()) {
       this._valueIndex.set(value, index);
     }
   }
 
-  features(name: string): string[] {
-    return this._values.map((v) => `${name}_is_${String(v)}`);
+  features(): string[] {
+    return this._values.map((v) => `${this._property.name}_is_${String(v)}`);
   }
 
   encode(value: T): Array<number> {

@@ -6,7 +6,7 @@ describe("CategoryEncoder Test Suite", () => {
   it("should encode and decode values correctly", () => {
     // Arrange
     const categories = ["A", "B", "C"];
-    const encoder = new CategoryEncoder(categories);
+    const encoder = new CategoryEncoder({ values: categories });
 
     // Act
     const encodedA = encoder.encode("A");
@@ -27,7 +27,7 @@ describe("CategoryEncoder Test Suite", () => {
   it("should support list feature names", () => {
     // Arrange
     const categories = ["A", "B", "C"];
-    const encoder = new CategoryEncoder(categories);
+    const encoder = new CategoryEncoder({ name: 'c_1', values: categories });
 
     expect(encoder.features("c_1")).toMatchSnapshot();
   });
@@ -35,7 +35,7 @@ describe("CategoryEncoder Test Suite", () => {
   it("should handle null value", () => {
     // Arrange
     const categories = ["A", "B", "C"];
-    const encoder = new CategoryEncoder(categories);
+    const encoder = new CategoryEncoder({ values: categories });
 
     // Act
     const encodedNull = encoder.encode(null);
@@ -50,7 +50,7 @@ describe("CategoryEncoder Test Suite", () => {
   it("should encode and decode values correctly for different types", () => {
     // Arrange
     const categories = [Symbol("A"), "B", 42, true];
-    const encoder = new CategoryEncoder(categories);
+    const encoder = new CategoryEncoder({ values: categories });
 
     // Act
     const encodedSymbolA = encoder.encode(categories[0]);

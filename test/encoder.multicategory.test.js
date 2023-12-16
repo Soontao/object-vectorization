@@ -3,7 +3,7 @@ import { nullVector } from "../src/encoders/util.js";
 
 describe("MultiCategoryEncoder Test Suite", () => {
   it("should support encode with MultiCategoryEncoder", () => {
-    const e = new MultiCategoryEncoder(["A", "B", "C"]);
+    const e = new MultiCategoryEncoder({ name: 'cat_1', values: ["A", "B", "C"], type: 'multi_category' });
     expect(e.features("cat_1")).toMatchSnapshot();
     expect(e.encode(["A"])).toEqual([1, 0, 0]);
     expect(e.encode(["A", "B"])).toEqual([1, 1, 0]);
@@ -14,7 +14,7 @@ describe("MultiCategoryEncoder Test Suite", () => {
   });
 
   it("should support decode with MultiCategoryEncoder", () => {
-    const e = new MultiCategoryEncoder(["A", "B", "C"]);
+    const e = new MultiCategoryEncoder({ values: ["A", "B", "C"], type: 'multi_category' });
     expect(e.decode(["A", "B", "C"])).toEqual([]);
     expect(e.decode([0, 1, 1])).toEqual(["B", "C"]);
     expect(e.decode([0, 0, 0])).toEqual([]);

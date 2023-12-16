@@ -1,3 +1,4 @@
+import ObjectMetadata, { Property } from "./Metadata.js";
 import { Vector } from "./type.js";
 
 /**
@@ -19,13 +20,32 @@ export interface Encoder<T = any> {
   /**
    * get sub features list
    *
-   * @param name current feature name
    */
-  features(name: string): Array<string>;
+  features(): Array<string>;
   /**
    * vector length
    */
   get length(): number;
+}
+
+export abstract class AbstractEncoder<T> implements Encoder<T> {
+  protected _property: Property;
+
+  constructor(property: Property | ObjectMetadata) {
+    if (!("name" in property) && "properties" in property) {
+      this._property = { name: "root", meta: property } as any;
+    } else {
+      this._property = property;
+    }
+  }
+
+  abstract encode(value: T): Vector;
+
+  abstract decode(vec: Vector): T;
+
+  abstract features(): string[];
+
+  abstract get length(): number;
 }
 
 export default Encoder;

@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import { inspect } from "util";
-import Encoder from "./Encoder.js";
-import ObjectMetadata, { mapEncoder, metadataValidator } from "./Metadata.js";
+import defineHiddenProperty from "../utils/defineHiddenProperty.js";
+import { AbstractEncoder } from "./Encoder.js";
+import ObjectMetadata, { Property, mapEncoder, metadataValidator } from "./Metadata.js";
 import { Vector } from "./type.js";
 import { isNull, nullVector } from "./util.js";
 
@@ -9,21 +10,24 @@ export function sort(meta: ObjectMetadata): ObjectMetadata {
   if (meta._sorted) {
     return meta;
   }
-  const newMeta = { ...meta };
-  newMeta.properties = meta.properties
-    .map((property) => {
-      if (property.type == "object") {
-        const newV = { ...property };
-        newV.meta = sort(property.meta as any);
-        return newV;
-      }
-      if (property.type === "category" && property.values) {
-        property.values = property.values!.sort();
-      }
-      return property;
-    })
-    .sort((p1, p2) => (p1.name > p2.name ? 1 : -1));
-  Object.defineProperty(newMeta, "_sorted", { value: true, enumerable: false });
+  const newMeta = {
+    ...meta,
+    properties: meta.properties
+      .map((property) => {
+        if (property.type == "object") {
+          const newV = { ...property };
+          newV.meta = sort(property.meta as any);
+          return newV;
+        }
+        if (property.type === "category" && property.values) {
+          property.values = property.values!.sort();
+        }
+        return property;
+      })
+      .sort((p1, p2) => (p1.name > p2.name ? 1 : -1)),
+  };
+
+  defineHiddenProperty(newMeta, "_sorted", true);
   return newMeta;
 }
 
@@ -38,10 +42,10 @@ export function fillEncoders(meta: ObjectMetadata) {
     if (property.meta) {
       sortMetaAndFillEncoders(property.meta!); // inner meta create encoders firstly
     }
-    Object.defineProperty(property, "_encoder", { value: mapEncoder(property), enumerable: false });
+    defineHiddenProperty(property, "_encoder", mapEncoder(property));
   }
   calculateObjectVecLength(meta);
-  Object.defineProperty(meta, "_encoder_filled", { value: true, enumerable: false });
+  defineHiddenProperty(meta, "_encoder_filled", true);
   return meta;
 }
 
@@ -52,7 +56,7 @@ export function sortMetaAndFillEncoders(meta: ObjectMetadata): ObjectMetadata {
       throw new Error(`not valid metadata, please check ${inspect(metadataValidator.errors)}`);
     }
   }
-  Object.defineProperty(meta, "_valid", { value: true, enumerable: false });
+  defineHiddenProperty(meta, "_valid", true);
   return fillEncoders(sort(meta));
 }
 
@@ -61,7 +65,7 @@ export function calculateObjectVecLength(meta: ObjectMetadata): number {
     return meta._length;
   }
   const _length = meta.properties.reduce((acc, property) => acc + property._encoder!.length, 0);
-  Object.defineProperty(meta, "_length", { value: _length, enumerable: false });
+  defineHiddenProperty(meta, "_length", _length);
   return _length;
 }
 
@@ -69,15 +73,17 @@ export function calculateObjectVecLength(meta: ObjectMetadata): number {
  * @ai
  * @human
  */
-export class ObjectEncoder<T> implements Encoder<T> {
-  #meta: ObjectMetadata;
+export class ObjectEncoder<T> extends AbstractEncoder<T> {
+  protected _meta: ObjectMetadata;
 
-  constructor(meta: ObjectMetadata) {
-    this.#meta = sortMetaAndFillEncoders(meta);
+  constructor(prop: Property | ObjectMetadata) {
+    super(prop);
+    this._meta = sortMetaAndFillEncoders(this._property.meta!);
   }
 
-  features(name: string = "root"): string[] {
-    return this.#meta.properties.map((p) => p._encoder!.features(p.name).map((pName) => `${name}_${pName}`)).flat();
+  features(): string[] {
+    const name = this._property.name ?? "root";
+    return this._meta.properties.map((p) => p._encoder!.features().map((pName) => `${name}_${pName}`)).flat();
   }
 
   encode(value: T): Vector {
@@ -91,7 +97,7 @@ export class ObjectEncoder<T> implements Encoder<T> {
 
     const encodedVector: number[] = [];
 
-    for (const property of this.#meta.properties) {
+    for (const property of this._meta.properties) {
       encodedVector.push(...property._encoder!.encode((value as any)[property.name]));
     }
 
@@ -106,7 +112,7 @@ export class ObjectEncoder<T> implements Encoder<T> {
     const decodedObject: any = {};
     let index = 0;
 
-    for (const property of this.#meta.properties) {
+    for (const property of this._meta.properties) {
       const encoder = property._encoder!;
       const value = encoder.decode(vec.slice(index, index + encoder.length));
       decodedObject[property.name] = value;
@@ -117,7 +123,13 @@ export class ObjectEncoder<T> implements Encoder<T> {
   }
 
   get length(): number {
-    return this.#meta._length!;
+    return this._meta._length!;
+  }
+}
+
+export class ListObjectEncoder<T> extends ObjectEncoder<T> {
+  features(): string[] {
+    return this._meta.properties.map((p) => p._encoder!.features()).flat();
   }
 }
 

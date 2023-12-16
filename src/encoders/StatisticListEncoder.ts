@@ -1,8 +1,8 @@
 import { variance } from "../utils/variance.js";
-import Encoder from "./Encoder.js";
+import { AbstractEncoder } from "./Encoder.js";
 import { DecodeNotSupportedError } from "./Errors.js";
-import ObjectMetadata from "./Metadata.js";
-import ObjectEncoder, { sortMetaAndFillEncoders } from "./ObjectEncoder.js";
+import ObjectMetadata, { Property } from "./Metadata.js";
+import ObjectEncoder, { ListObjectEncoder, sortMetaAndFillEncoders } from "./ObjectEncoder.js";
 import { Vector } from "./type.js";
 import { isNull, isNullVector, nullVector } from "./util.js";
 
@@ -31,25 +31,27 @@ const statisticColsNum = statisticFuncNames.length;
 /**
  * @human
  */
-export class StatisticListEncoder<T> implements Encoder<Array<T>> {
+export class StatisticListEncoder<T> extends AbstractEncoder<Array<T>> {
   #meta: ObjectMetadata;
 
   #encoder: ObjectEncoder<T>;
 
   #features!: Array<string>;
 
-  constructor(meta: ObjectMetadata) {
-    this.#meta = sortMetaAndFillEncoders(meta);
-    this.#encoder = new ObjectEncoder(this.#meta);
+  constructor(prop: Property) {
+    super(prop);
+    this.#meta = sortMetaAndFillEncoders(this._property.meta!);
+    this.#encoder = new ListObjectEncoder(this._property);
   }
 
-  features(name: string = "root"): string[] {
+  features(): string[] {
+    const name = this._property.name ?? "root";
     if (this.#features == undefined) {
       const statisticFeatures = new Array(this.#encoder.length * statisticColsNum);
       for (const [funcIdx, funcName] of statisticFuncNames.entries()) {
-        for (const [idx, objFeat] of this.#encoder.features(name).entries()) {
+        for (const [idx, objFeat] of this.#encoder.features().entries()) {
           const aggValueLocate = this.#encoder.length * funcIdx + idx;
-          statisticFeatures[aggValueLocate] = `${objFeat}_${funcName}`;
+          statisticFeatures[aggValueLocate] = `${name}_${objFeat}_${funcName}`;
         }
       }
       this.#features = statisticFeatures;

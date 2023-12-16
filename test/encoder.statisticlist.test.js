@@ -9,7 +9,7 @@ describe("StatisticListEncoder Test Suite", () => {
     ],
   };
 
-  const encoder = new StatisticListEncoder(meta);
+  const encoder = new StatisticListEncoder({ name: 'list_a', meta });
 
   const testData = [
     { age: 25, height: 180 },
@@ -19,7 +19,7 @@ describe("StatisticListEncoder Test Suite", () => {
 
   it("should encode correctly", () => {
     const encoded = encoder.encode(testData);
-    const features = encoder.features("list_a");
+    const features = encoder.features();
     // Check if the encoded vector has the correct length
     expect(encoded.length).toBe(12);
     expect(features).toMatchSnapshot();
