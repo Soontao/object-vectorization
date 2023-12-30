@@ -18,7 +18,9 @@
     "nocheck",
     "npmjs",
     "paren",
-    "schemasafe"
+    "schemasafe",
+    "softargmax",
+    "softmax"
   ],
   "[cds]": {
     "editor.defaultFormatter": "SAPSE.vscode-cds"

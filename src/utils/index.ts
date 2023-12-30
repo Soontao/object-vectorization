@@ -1,5 +1,4 @@
-import { createProjectorValues } from "./Projector.js";
-import { murmurhash3 } from "./murmurhash3.js";
-import normalization from "./normalization.js";
-
-export { createProjectorValues, murmurhash3, normalization };
+export { createProjectorValues } from "./Projector.js";
+export { murmurhash3 } from "./murmurhash3.js";
+export { normalization } from "./normalization.js";
+export { softmax } from "./softmax.js";
